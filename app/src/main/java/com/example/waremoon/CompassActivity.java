@@ -2,11 +2,14 @@ package com.example.waremoon;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.hardware.Camera;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +20,9 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     private Sensor magnetometer;
     private Sensor accelerometer;
 
+
+    private Camera mCamera;
+    private CameraPreview mPreview;
     private float[] lastAccelerometer = new float[3];
     private float[] lastMagnetometer = new float[3];
     private float[] rotationMatrix = new float[9];
@@ -28,12 +34,17 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     private TextView compass;
 
 
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
+
+
+        CameraPreview cameraPreview = findViewById(R.id.camera_preview);
+
+
+
 
         textViewDirection = findViewById(R.id.textViewDirection);
         textViewTilt = findViewById(R.id.textViewTilt);
