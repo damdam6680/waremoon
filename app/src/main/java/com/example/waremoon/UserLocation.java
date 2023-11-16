@@ -65,8 +65,8 @@ public class UserLocation {
                                 latitude = location.getLatitude();
 
                                 longitude = location.getLongitude();
-                            }else{
-                                Log.v("gps","error");
+                            } else {
+                                Log.v("gps", "error");
                             }
                         }
                     });

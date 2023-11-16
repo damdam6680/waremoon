@@ -1,13 +1,14 @@
 package com.example.waremoon;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -17,6 +18,7 @@ import org.shredzone.commons.suncalc.MoonPosition;
 import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -86,7 +88,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        Button galleryButton = findViewById(R.id.galleryButton);
+        galleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Tworzymy nową intencję, aby uruchomić aktywność GalleryActivity
+                Intent galleryIntent = new Intent(MainActivity.this, GalleryActivity.class);
+                startActivity(galleryIntent);
+            }
+        });
     }
-
-
 }
