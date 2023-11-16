@@ -124,7 +124,6 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         );
     }
 
-
     private String formatAzimuth(float azimuth) {
         if (azimuth < 0) {
             azimuth += 360; // Ensure azimuth is positive
@@ -136,5 +135,4 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         int index = Math.round(azimuth / 45) % 8;
         return directions[index];
     }
-
 }
