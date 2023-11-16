@@ -102,16 +102,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(galleryIntent);
             }
         });
-    }
+
         openCompass.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                openCompassActivity();
+                Intent compassIntent = new Intent(MainActivity.this, CompassActivity.class);
+                startActivity(compassIntent);
             }
         });
-    }
-    private void openCompassActivity() {
-        Intent intent = new Intent(this, CompassActivity.class);
-        startActivity(intent);
     }
 }

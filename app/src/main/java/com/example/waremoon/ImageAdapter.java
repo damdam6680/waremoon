@@ -10,6 +10,11 @@ import android.widget.ImageView;
 public class ImageAdapter extends BaseAdapter {
 
     private Context mContext;
+    private int[] mImageIds = {
+            R.drawable.image1,
+            R.drawable.image2,
+            R.drawable.image3,
+    };
 
     public ImageAdapter(Context context) {
         mContext = context;
@@ -18,17 +23,17 @@ public class ImageAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         // Zwraca liczbę elementów do wyświetlenia
-        return 0; // Wprowadź odpowiednią liczbę zdjęć
+        return mImageIds.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mImageIds[position];
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -44,9 +49,10 @@ public class ImageAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        // Tutaj ustaw zdjęcie dla danego indeksu 'position' za pomocą ścieżki do pliku
-        // Możesz użyć biblioteki Picasso lub Glide do łatwiejszego ładowania obrazów
+        // Ustaw obraz dla danego indeksu 'position' za pomocą identyfikatora obrazu z tablicy
+        imageView.setImageResource(mImageIds[position]);
 
         return imageView;
     }
 }
+
