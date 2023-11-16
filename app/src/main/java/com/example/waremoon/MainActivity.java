@@ -1,8 +1,11 @@
 package com.example.waremoon;
-
+import android.content.Context;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -24,6 +27,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     private FusedLocationProviderClient fusedLocationClient;
+
 
     String date;
     private Button button;
@@ -56,6 +60,15 @@ public class MainActivity extends AppCompatActivity {
 
         String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
+        //Camera
+
+        CameraActivity cameraActivity = new CameraActivity();
+
+        CameraActivity.getCameraInstance(this);
+
+
+
+        // End Camera
         button.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -102,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(galleryIntent);
             }
         });
-
         openCompass.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
