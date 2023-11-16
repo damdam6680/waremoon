@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private Button button2;
     private Button button3;
 
+    private Button openCompass;
+
     private TextView textView;
     private TextView textView1;
     private TextView textView2;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         Button button = findViewById(R.id.button);
         Button button2 = findViewById(R.id.button2);
         Button button3 = findViewById(R.id.button3);
+        openCompass = findViewById(R.id.OpenCompass);
 
         TextView textView = findViewById(R.id.textView);
         TextView textView1 = findViewById(R.id.textView2);
@@ -99,5 +102,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(galleryIntent);
             }
         });
+    }
+        openCompass.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                openCompassActivity();
+            }
+        });
+    }
+    private void openCompassActivity() {
+        Intent intent = new Intent(this, CompassActivity.class);
+        startActivity(intent);
     }
 }
