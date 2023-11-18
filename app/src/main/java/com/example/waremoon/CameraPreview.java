@@ -12,10 +12,15 @@ import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-/** A basic Camera preview class */
+/**
+ * A basic Camera preview class
+ */
 @SuppressLint("ViewConstructor")
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
     private final SurfaceHolder mHolder;
@@ -120,9 +125,57 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         } else {  // back-facing
             result = (info.orientation - degrees + 360) % 360;
         }
-
         camera.setDisplayOrientation(result);
     }
 
+    public void takePicture() {
+        if (mCamera != null) {
+            mCamera.takePicture(null, null, pictureCallback);
+        } else {
+            Log.e("CameraPreview", "Camera is null");
+        }
+    }
 
+    private Camera.PictureCallback pictureCallback = new Camera.PictureCallback() {
+        @Override
+        public void onPictureTaken(byte[] data, Camera camera) {
+            File pictureFile = getOutputMediaFile();
+            if (pictureFile == null) {
+                Log.d("CameraPreview", "Error creating media file, check storage permissions");
+                return;
+            }
+
+            try {
+                FileOutputStream fos = new FileOutputStream(pictureFile);
+                fos.write(data);
+                fos.close();
+                Log.d("CameraPreview", "Picture saved: " + pictureFile.getPath());
+            } catch (IOException e) {
+                Log.e("CameraPreview", "Error saving picture: " + e.getMessage());
+            }
+
+            // Restart the preview to allow taking more pictures
+            camera.startPreview();
+        }
+    };
+
+    private File getOutputMediaFile() {
+        File mediaStorageDir = new File(getContext().getFilesDir(), "photos");
+
+        if (!mediaStorageDir.exists()) {
+            boolean directoryCreated = mediaStorageDir.mkdirs();
+
+            if (!directoryCreated) {
+                Log.d("CameraPreview", "Failed to create directory");
+                return null;
+            }
+        }
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile;
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+                "IMG_" + timeStamp + ".jpg");
+
+        return mediaFile;
+    }
 }

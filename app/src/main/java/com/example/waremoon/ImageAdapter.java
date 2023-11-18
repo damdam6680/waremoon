@@ -1,34 +1,52 @@
 package com.example.waremoon;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ImageAdapter extends BaseAdapter {
 
     private Context mContext;
-    private int[] mImageIds = {
-            R.drawable.image1,
-            R.drawable.image2,
-            R.drawable.image3,
-    };
+    private List<String> mImagePaths;
 
     public ImageAdapter(Context context) {
         mContext = context;
+        mImagePaths = getImagesFromFolder();
+    }
+
+    private List<String> getImagesFromFolder() {
+        List<String> imagePaths = new ArrayList<>();
+        File folder = new File(mContext.getFilesDir(), "photos");
+
+        if (folder.exists()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    imagePaths.add(file.getAbsolutePath());
+                }
+            }
+        }
+
+        return imagePaths;
     }
 
     @Override
     public int getCount() {
-        // Zwraca liczbę elementów do wyświetlenia
-        return mImageIds.length;
+        return mImagePaths.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mImageIds[position];
+        return mImagePaths.get(position);
     }
 
     @Override
@@ -40,19 +58,19 @@ public class ImageAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
         if (convertView == null) {
-            // Jeśli obiekt View nie jest ponownie używany, utwórz nowy obiekt ImageView
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(300, 300)); // Dostosuj rozmiar obrazu
+            imageView.setLayoutParams(new GridView.LayoutParams(300, 300));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8, 8, 8, 8);
         } else {
             imageView = (ImageView) convertView;
         }
 
-        // Ustaw obraz dla danego indeksu 'position' za pomocą identyfikatora obrazu z tablicy
-        imageView.setImageResource(mImageIds[position]);
+        // Wczytaj obraz z pliku na podstawie ścieżki do pliku
+        String imagePath = mImagePaths.get(position);
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+        imageView.setImageBitmap(bitmap);
 
         return imageView;
     }
 }
-
