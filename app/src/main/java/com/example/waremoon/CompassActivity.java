@@ -8,8 +8,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,18 +17,14 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     private SensorManager sensorManager;
     private Sensor magnetometer;
     private Sensor accelerometer;
-
-
     private Camera mCamera;
     private CameraPreview mPreview;
     private float[] lastAccelerometer = new float[3];
     private float[] lastMagnetometer = new float[3];
     private float[] rotationMatrix = new float[9];
     private float[] orientationValues = new float[3];
-
     private TextView textViewDirection;
     private TextView textViewTilt;
-
     private TextView compass;
 
 
@@ -40,11 +34,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
 
-
         CameraPreview cameraPreview = findViewById(R.id.camera_preview);
-
-
-
 
         textViewDirection = findViewById(R.id.textViewDirection);
         textViewTilt = findViewById(R.id.textViewTilt);

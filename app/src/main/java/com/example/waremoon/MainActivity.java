@@ -1,14 +1,10 @@
 package com.example.waremoon;
-import android.content.Context;
+
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,21 +17,16 @@ import org.shredzone.commons.suncalc.MoonPosition;
 import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
     private FusedLocationProviderClient fusedLocationClient;
-
-
     String date;
     private Button button;
     private Button button2;
     private Button button3;
-
     private Button openCompass;
-
     private TextView textView;
     private TextView textView1;
     private TextView textView2;
@@ -65,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
         CameraActivity cameraActivity = new CameraActivity();
 
         CameraActivity.getCameraInstance(this);
-
-
 
         // End Camera
         button.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         Button galleryButton = findViewById(R.id.galleryButton);
         galleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,11 +103,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(galleryIntent);
             }
         });
-        openCompass.setOnClickListener(new View.OnClickListener(){
+        openCompass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent compassIntent = new Intent(MainActivity.this, CompassActivity.class);
                 startActivity(compassIntent);
+            }
+        });
+
+        Button cameraButton = findViewById(R.id.cameraButton);
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Tworzymy nową intencję, aby uruchomić aktywność GalleryActivity
+                Intent cameraIntent = new Intent(MainActivity.this, PhotosActivity.class);
+                startActivity(cameraIntent);
             }
         });
     }
