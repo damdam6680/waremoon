@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-
+// Test
 public class CameraActivity {
 
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
