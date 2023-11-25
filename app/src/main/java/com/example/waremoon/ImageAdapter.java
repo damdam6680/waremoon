@@ -44,6 +44,10 @@ public class ImageAdapter extends BaseAdapter {
         return imagePaths;
     }
 
+    public String getImagePathByPosition(int position) {
+        return mImagePaths.get(position);
+    }
+
     @Override
     public int getCount() {
         return mImagePaths.size();
@@ -76,12 +80,14 @@ public class ImageAdapter extends BaseAdapter {
         Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
         imageView.setImageBitmap(bitmap);
 
+        imageView.setRotation(90);
+
         // Dodaj obsługę zdarzenia kliknięcia
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mItemClickListener != null) {
-                    mItemClickListener.onItemClick(imagePath);
+                    mItemClickListener.onItemClick(position);
                 }
             }
         });
