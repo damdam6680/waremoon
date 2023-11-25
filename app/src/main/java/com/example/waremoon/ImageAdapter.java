@@ -17,6 +17,11 @@ public class ImageAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<String> mImagePaths;
+    private OnItemClickListener mItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mItemClickListener = listener;
+    }
 
     public ImageAdapter(Context context) {
         mContext = context;
@@ -70,6 +75,16 @@ public class ImageAdapter extends BaseAdapter {
         String imagePath = mImagePaths.get(position);
         Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
         imageView.setImageBitmap(bitmap);
+
+        // Dodaj obsługę zdarzenia kliknięcia
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mItemClickListener != null) {
+                    mItemClickListener.onItemClick(imagePath);
+                }
+            }
+        });
 
         return imageView;
     }
