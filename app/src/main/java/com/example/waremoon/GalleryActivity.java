@@ -1,5 +1,6 @@
 package com.example.waremoon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.GridView;
 
@@ -13,6 +14,18 @@ public class GalleryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gallery);
 
         GridView gridView = findViewById(R.id.gridView);
-        gridView.setAdapter(new ImageAdapter(this));
+        ImageAdapter imageAdapter = new ImageAdapter(this);
+        gridView.setAdapter(imageAdapter);
+
+        // Ustaw nasłuchiwacz
+        imageAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(String imagePath) {
+                // Przejdź do nowego layoutu
+                Intent intent = new Intent(GalleryActivity.this, ImageDetailActivity.class);
+                intent.putExtra("imagePath", imagePath);
+                startActivity(intent);
+            }
+        });
     }
 }
