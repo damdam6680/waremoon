@@ -1,0 +1,13 @@
+<!-- res/drawable/circle_button_background.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/colorAccent" /> <!-- Dostosuj kolor tła przycisku podczas naciśnięcia -->
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/colorPrimary" /> <!-- Dostosuj kolor tła przycisku w stanie domyślnym -->
+        </shape>
+    </item>
+</selector>
