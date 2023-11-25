@@ -20,10 +20,9 @@ public class GalleryActivity extends AppCompatActivity {
         // Ustaw nasłuchiwacz
         imageAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(String imagePath) {
-                // Przejdź do nowego layoutu
+            public void onItemClick(int position) {
                 Intent intent = new Intent(GalleryActivity.this, ImageDetailActivity.class);
-                intent.putExtra("imagePath", imagePath);
+                intent.putExtra("position", position);
                 startActivity(intent);
             }
         });
