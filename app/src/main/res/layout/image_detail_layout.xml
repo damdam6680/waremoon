@@ -35,16 +35,21 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Prev"
-                tools:ignore="MissingConstraints" />
+                android:text="Prev" />
 
             <Button
                 android:id="@+id/next"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Next"
-                tools:ignore="MissingConstraints" />
+                android:text="Next" />
+
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Delete" />
 
         </LinearLayout>
 

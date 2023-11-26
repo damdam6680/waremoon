@@ -48,6 +48,11 @@ public class ImageAdapter extends BaseAdapter {
         return mImagePaths.get(position);
     }
 
+    public void removeImagePathByPosition(int position) {
+        mImagePaths.remove(position);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return mImagePaths.size();
