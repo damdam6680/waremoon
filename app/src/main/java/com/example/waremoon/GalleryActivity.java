@@ -8,13 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class GalleryActivity extends AppCompatActivity {
 
+    ImageAdapter imageAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
         GridView gridView = findViewById(R.id.gridView);
-        ImageAdapter imageAdapter = new ImageAdapter(this);
+        imageAdapter = new ImageAdapter(this);
         gridView.setAdapter(imageAdapter);
 
         // Ustaw nasłuchiwacz
@@ -26,5 +28,12 @@ public class GalleryActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        imageAdapter.notifyDataSetChanged();
     }
 }

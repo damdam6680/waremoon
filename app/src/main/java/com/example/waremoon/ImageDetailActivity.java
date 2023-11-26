@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.File;
 import java.util.List;
 
 public class ImageDetailActivity extends AppCompatActivity {
@@ -49,6 +50,14 @@ public class ImageDetailActivity extends AppCompatActivity {
                 showPrevImage();
             }
         });
+
+        Button buttonDelete = findViewById(R.id.delete);
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteDisplayedImage();
+            }
+        });
     }
 
     private void showNextImage() {
@@ -58,7 +67,7 @@ public class ImageDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void showPrevImage(){
+    private void showPrevImage() {
         if (selectedImagePosition - 1 >= 0) {
             selectedImagePosition--;
             updateDisplayedImage(selectedImagePosition);
@@ -70,5 +79,19 @@ public class ImageDetailActivity extends AppCompatActivity {
         Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
         imageView.setImageBitmap(bitmap);
         imageView.setRotation(90);
+    }
+
+    private void deleteDisplayedImage() {
+        String imagePath = imageAdapter.getImagePathByPosition(selectedImagePosition);
+
+        File file = new File(imagePath);
+        boolean isDeleted = file.delete();
+
+        if (isDeleted) {
+
+            imageAdapter.removeImagePathByPosition(selectedImagePosition);
+
+            updateDisplayedImage(selectedImagePosition);
+        }
     }
 }
