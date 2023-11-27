@@ -120,5 +120,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(cameraIntent);
             }
         });
+
+        Button panoramaButton = findViewById(R.id.panoramaButton);
+        panoramaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Tworzymy nową intencję, aby uruchomić aktywność GalleryActivity
+                Intent panoramaIntent = new Intent(MainActivity.this, PanoramaActivity.class);
+                startActivity(panoramaIntent);
+            }
+        });
     }
 }
