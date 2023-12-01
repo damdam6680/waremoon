@@ -130,5 +130,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(panoramaIntent);
             }
         });
+
+        Button loginButton = findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Tworzymy nową intencję, aby uruchomić aktywność GalleryActivity
+                Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(loginIntent);
+            }
+        });
     }
 }

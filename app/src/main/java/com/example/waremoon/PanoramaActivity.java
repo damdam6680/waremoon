@@ -14,42 +14,41 @@ import com.panoramagl.utils.PLUtils;
 
 public class PanoramaActivity extends AppCompatActivity {
     private PLManager plManager;
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        plManager = new PLManager(this);
-////        plManager.setContentView(findViewById(android.R.id.content));
-//        plManager.setContentView(findViewById(R.id.content_view));
-//        plManager.onCreate();
-//
-//        PLSphericalPanorama panorama = new PLSphericalPanorama();
-//        panorama.getCamera().lookAt(30.0f, 90.0f);
-//
-//        panorama.setImage(new PLImage(PLUtils.getBitmap(this, R.raw.sighisoara_sphere), false));
-//
-//        plManager.setPanorama(panorama);
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.panorama);
-
-        GLSurfaceView glSurfaceView = findViewById(R.id.panorama_view);
         plManager = new PLManager(this);
-
-        // Zmieniona linia - używamy rodzica GLSurfaceView jako argumentu
-        ViewGroup glSurfaceParent = (ViewGroup) glSurfaceView.getParent();
-        plManager.setContentView(glSurfaceParent);
-
+        plManager.setContentView(findViewById(android.R.id.content));
         plManager.onCreate();
 
         PLSphericalPanorama panorama = new PLSphericalPanorama();
         panorama.getCamera().lookAt(30.0f, 90.0f);
+
         panorama.setImage(new PLImage(PLUtils.getBitmap(this, R.raw.sighisoara_sphere), false));
 
         plManager.setPanorama(panorama);
     }
+
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.panorama);
+//
+//        GLSurfaceView glSurfaceView = findViewById(R.id.panorama_view);
+//        plManager = new PLManager(this);
+//
+//        // Zmieniona linia - używamy rodzica GLSurfaceView jako argumentu
+//        ViewGroup glSurfaceParent = (ViewGroup) glSurfaceView.getParent();
+//        plManager.setContentView(glSurfaceParent);
+//
+//        plManager.onCreate();
+//
+//        PLSphericalPanorama panorama = new PLSphericalPanorama();
+//        panorama.getCamera().lookAt(30.0f, 90.0f);
+//        panorama.setImage(new PLImage(PLUtils.getBitmap(this, R.raw.sighisoara_sphere), false));
+//
+//        plManager.setPanorama(panorama);
+//    }
 
 
     @Override
