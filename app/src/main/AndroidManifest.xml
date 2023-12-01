@@ -52,5 +52,9 @@
         <activity android:name=".ImageDetailActivity" />
 
         <activity android:name=".PanoramaActivity" />
+
+        <activity android:name=".LoginActivity" />
+
+        <activity android:name=".RegistrationActivity" />
     </application>
 </manifest>
