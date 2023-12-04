@@ -2,6 +2,7 @@ package com.example.waremoon;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -55,6 +56,19 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(PASSWORD_COL, password);
         db.insert(TABLE_NAME, null, values);
         db.close();
+    }
+
+    // Add this method to check user credentials
+    public boolean checkUserCredentials(String userName, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {ID_COL};
+        String selection = USERNAME_COL + "=? AND " + PASSWORD_COL + "=?";
+        String[] selectionArgs = {userName, password};
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        int count = cursor.getCount();
+        cursor.close();
+        return count > 0;
     }
 
     @Override
