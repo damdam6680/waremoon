@@ -1,0 +1,21 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" /> <!-- kolor tła -->
+            <corners android:radius="8dp" /> <!-- zaokrąglenie rogów -->
+        </shape>
+    </item>
+    <item
+        android:bottom="4dp"
+        android:left="4dp"
+        android:right="4dp"
+        android:top="4dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" /> <!-- przezroczyste tło -->
+            <stroke
+                android:width="2dp"
+                android:color="#D6D6D6" /> <!-- kolor obramowania -->
+            <corners android:radius="6dp" /> <!-- zaokrąglenie rogów -->
+        </shape>
+    </item>
+</layer-list>
