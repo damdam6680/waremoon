@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,13 +7,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
 
         <!-- Header Section -->
 
         <!-- User Section -->
         <Button
-            android:id="@+id/button9"
+            android:id="@+id/backButton"
             android:layout_width="36dp"
             android:layout_height="45dp"
             android:layout_marginStart="28dp"
@@ -31,7 +31,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Aplikacja Astronomiczna"
-            app:layout_constraintStart_toEndOf="@+id/button9"
+            app:layout_constraintStart_toEndOf="@+id/backButton"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -46,7 +46,7 @@
 
         <!-- Button Layout Section -->
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/userTextView"
             style="@style/boldText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -73,30 +73,34 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/border_background"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageButton
-                        android:id="@+id/imageButton"
-                        android:layout_width="match_parent"
+                    <Button
+                        android:id="@+id/moonButton"
+                        android:layout_width="100dp"
                         android:layout_height="100dp"
+                        android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star" />
+                        android:background="@drawable/circle_background"
+                        android:text="🌙"
+                        android:textSize="40sp" />
 
                     <TextView
                         android:id="@+id/textView"
                         android:layout_width="match_parent"
-                        android:layout_height="37dp"
+                        android:layout_height="30dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="Księżyc" />
                 </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
@@ -110,14 +114,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/border_background"
+                    android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageButton
-                        android:id="@+id/imageButton2"
-                        android:layout_width="match_parent"
+                    <Button
+                        android:id="@+id/starButton"
+                        android:layout_width="100dp"
                         android:layout_height="100dp"
+                        android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star" />
+                        android:background="@drawable/circle_background"
+                        android:text="⭐️"
+                        android:textSize="40sp" />
 
                     <TextView
                         android:id="@+id/textView2"
@@ -140,14 +149,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/border_background"
+                    android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageButton
-                        android:id="@+id/imageButton3"
-                        android:layout_width="match_parent"
+                    <Button
+                        android:id="@+id/panoramaButton"
+                        android:layout_width="100dp"
                         android:layout_height="100dp"
+                        android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star" />
+                        android:background="@drawable/circle_background"
+                        android:text="🌌"
+                        android:textSize="40sp" />
 
                     <TextView
                         android:id="@+id/textView3"
@@ -162,16 +176,18 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button10"
+            android:id="@+id/seeMoreButton"
+            style="@style/WhiteButtonStyle"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="Zobacz więcej"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonLayout" />
+
 
         <TextView
             android:id="@+id/textView6"
@@ -182,21 +198,21 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="Położenie Księżyca"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button10" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seeMoreButton" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/moonImageView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"
             app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6"
             app:srcCompat="@drawable/moon_image" />
 
         <TextView
@@ -209,40 +225,56 @@
             android:layout_marginEnd="16dp"
             android:text="Wybierz Datę"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintTop_toBottomOf="@+id/moonImageView" />
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="43dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14">
 
-            <!-- Twoje przyciski -->
             <Button
-                android:id="@+id/button16"
+                android:id="@+id/todayButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:text="Dzisiaj" />
+                android:background="@drawable/rounded_button"
+                android:padding="10dp"
+                android:text="Dzisiaj"
+                android:textSize="12sp" />
 
             <Button
-                android:id="@+id/button15"
+                android:id="@+id/tomorrowButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:text="Jutro" />
+                android:background="@drawable/rounded_button"
+                android:padding="10dp"
+                android:text="Jutro"
+                android:textSize="12sp" />
 
             <Button
-                android:id="@+id/button14"
+                android:id="@+id/weekButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:text="Następny Tydzień" />
+                android:background="@drawable/rounded_button"
+                android:padding="10dp"
+                android:text="Następny"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -251,6 +283,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="484dp"
             android:layout_marginEnd="16dp"
+            android:background="@drawable/border_background"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -263,7 +296,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView12"
+                    android:id="@+id/moonLocationTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -271,7 +304,7 @@
                     android:text="Położenie Księżyca" />
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/dayTimeTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -279,7 +312,7 @@
                     android:text="Zachód" />
 
                 <TextView
-                    android:id="@+id/textView10"
+                    android:id="@+id/timeTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -294,14 +327,14 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView17"
+                    android:id="@+id/moonFazeTextView"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:text="Faza Księżyca" />
 
                 <TextView
-                    android:id="@+id/textView13"
+                    android:id="@+id/moonFaze2TextView"
                     android:layout_width="match_parent"
                     android:layout_height="51dp"
                     android:gravity="center"
@@ -339,14 +372,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/border_background"
                     android:orientation="vertical">
 
-                    <ImageButton
-                        android:id="@+id/imageButton4"
+                    <Button
+                        android:id="@+id/cameraButton"
                         android:layout_width="match_parent"
                         android:layout_height="71dp"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star"
+                        android:text="📷️"
+                        android:textSize="30sp"
                         app:layout_constraintDimensionRatio="1:1" />
 
                     <TextView
@@ -355,7 +390,7 @@
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Księżyc" />
+                        android:text="Aparat" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -374,14 +409,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/border_background"
                     android:orientation="vertical">
 
-                    <ImageButton
-                        android:id="@+id/imageButton5"
+                    <Button
+                        android:id="@+id/skyMapButton"
                         android:layout_width="match_parent"
                         android:layout_height="82dp"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star"
+                        android:text="🔭"
+                        android:textSize="30sp"
                         app:layout_constraintDimensionRatio="1:1" />
 
                     <TextView
@@ -408,14 +445,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/border_background"
                     android:orientation="vertical">
 
-                    <ImageButton
-                        android:id="@+id/imageButton6"
+                    <Button
+                        android:id="@+id/galeryButton"
                         android:layout_width="match_parent"
                         android:layout_height="82dp"
                         android:layout_weight="1"
-                        android:src="@android:drawable/btn_star"
+                        android:text="🌠"
+                        android:textSize="30sp"
                         app:layout_constraintDimensionRatio="1:1" />
 
                     <TextView

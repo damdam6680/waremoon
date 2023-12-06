@@ -5,4 +5,14 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="ButtonWhite" parent="Widget.AppCompat.Button">
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="WhiteButtonStyle">
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:textColor">@android:color/black</item>
+        <!-- Dodaj inne właściwości stylu, jeśli są potrzebne -->
+    </style>
+
 </resources>
