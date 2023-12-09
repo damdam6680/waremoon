@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText userNameTextField, passwordTextField;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,19 +20,27 @@ public class LoginActivity extends AppCompatActivity {
 
         userNameTextField = findViewById(R.id.userNameTextField);
         passwordTextField = findViewById(R.id.passwordTextField);
+        sessionManager = new SessionManager(this);
 
         Button loginButton = findViewById(R.id.login);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Retrieve user input
-                String email = userNameTextField.getText().toString().trim();
+                String userName = userNameTextField.getText().toString().trim();
                 String password = passwordTextField.getText().toString().trim();
 
-                // Validate login
-                if (isValidLogin(email, password)) {
-                    // Start the next activity (e.g., GalleryActivity) if login is successful
-                    Intent intent = new Intent(LoginActivity.this, GalleryActivity.class);
+                // W LoginActivity, w sekcji, gdzie przechodzisz do następnego activity
+                if (isValidLogin(userName, password)) {
+                    // Pobierz dodatkowe informacje o użytkowniku z bazy danych
+                    DBHandler dbHandler = new DBHandler(LoginActivity.this);
+                    int userId = dbHandler.getUserId(userName);
+                    String userNameFromDB = dbHandler.getUserName(userId);
+
+                    // Zapisz dane użytkownika w sesji
+                    sessionManager.setUserData(userId, userNameFromDB);
+
+                    Intent intent = new Intent(LoginActivity.this, Test.class);
                     startActivity(intent);
                 } else {
                     // Show an error message or handle the invalid login
@@ -52,9 +61,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // Validate login credentials
-    private boolean isValidLogin(String email, String password) {
+    private boolean isValidLogin(String userName, String password) {
         // Call the method from DBHandler to check if the user exists
         DBHandler dbHandler = new DBHandler(this);
-        return dbHandler.checkUserCredentials(email, password);
+        return dbHandler.checkUserCredentials(userName, password);
     }
 }
