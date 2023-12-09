@@ -17,6 +17,7 @@ public class ImageAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<String> mImagePaths;
+    private List<byte[]> mUserPhotos;  // lista przechowująca dane zdjęć jako byte[]
     private OnItemClickListener mItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -43,7 +44,6 @@ public class ImageAdapter extends BaseAdapter {
 
         return imagePaths;
     }
-
     public String getImagePathByPosition(int position) {
         return mImagePaths.get(position);
     }

@@ -449,7 +449,7 @@
                     android:orientation="vertical">
 
                     <Button
-                        android:id="@+id/galeryButton"
+                        android:id="@+id/galleryButton"
                         android:layout_width="match_parent"
                         android:layout_height="82dp"
                         android:layout_weight="1"

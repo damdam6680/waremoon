@@ -128,54 +128,73 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         camera.setDisplayOrientation(result);
     }
 
-    public void takePicture() {
+//    public void takePicture() {
+//        if (mCamera != null) {
+//            mCamera.takePicture(null, null, pictureCallback);
+//        } else {
+//            Log.e("CameraPreview", "Camera is null");
+//        }
+//    }
+
+    public void takePicture(final int userId) {
         if (mCamera != null) {
-            mCamera.takePicture(null, null, pictureCallback);
+            mCamera.takePicture(null, null, new Camera.PictureCallback() {
+                @Override
+                public void onPictureTaken(byte[] data, Camera camera) {
+                    // Save the image to the database
+                    DBHandler dbHandler = new DBHandler(getContext());
+                    dbHandler.insertUserImage(userId, data);
+
+                    // Restart the preview to allow taking more pictures
+                    camera.startPreview();
+                }
+            });
         } else {
             Log.e("CameraPreview", "Camera is null");
         }
     }
 
-    private Camera.PictureCallback pictureCallback = new Camera.PictureCallback() {
-        @Override
-        public void onPictureTaken(byte[] data, Camera camera) {
-            File pictureFile = getOutputMediaFile();
-            if (pictureFile == null) {
-                Log.d("CameraPreview", "Error creating media file, check storage permissions");
-                return;
-            }
 
-            try {
-                FileOutputStream fos = new FileOutputStream(pictureFile);
-                fos.write(data);
-                fos.close();
-                Log.d("CameraPreview", "Picture saved: " + pictureFile.getPath());
-            } catch (IOException e) {
-                Log.e("CameraPreview", "Error saving picture: " + e.getMessage());
-            }
-
-            // Restart the preview to allow taking more pictures
-            camera.startPreview();
-        }
-    };
-
-    private File getOutputMediaFile() {
-        File mediaStorageDir = new File(getContext().getFilesDir(), "photos");
-
-        if (!mediaStorageDir.exists()) {
-            boolean directoryCreated = mediaStorageDir.mkdirs();
-
-            if (!directoryCreated) {
-                Log.d("CameraPreview", "Failed to create directory");
-                return null;
-            }
-        }
-
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        File mediaFile;
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                "IMG_" + timeStamp + ".jpg");
-
-        return mediaFile;
-    }
+//    private Camera.PictureCallback pictureCallback = new Camera.PictureCallback() {
+//        @Override
+//        public void onPictureTaken(byte[] data, Camera camera) {
+//            File pictureFile = getOutputMediaFile();
+//            if (pictureFile == null) {
+//                Log.d("CameraPreview", "Error creating media file, check storage permissions");
+//                return;
+//            }
+//
+//            try {
+//                FileOutputStream fos = new FileOutputStream(pictureFile);
+//                fos.write(data);
+//                fos.close();
+//                Log.d("CameraPreview", "Picture saved: " + pictureFile.getPath());
+//            } catch (IOException e) {
+//                Log.e("CameraPreview", "Error saving picture: " + e.getMessage());
+//            }
+//
+//            // Restart the preview to allow taking more pictures
+//            camera.startPreview();
+//        }
+//    };
+//
+//    private File getOutputMediaFile() {
+//        File mediaStorageDir = new File(getContext().getFilesDir(), "photos");
+//
+//        if (!mediaStorageDir.exists()) {
+//            boolean directoryCreated = mediaStorageDir.mkdirs();
+//
+//            if (!directoryCreated) {
+//                Log.d("CameraPreview", "Failed to create directory");
+//                return null;
+//            }
+//        }
+//
+//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+//        File mediaFile;
+//        mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+//                "IMG_" + timeStamp + ".jpg");
+//
+//        return mediaFile;
+//    }
 }
