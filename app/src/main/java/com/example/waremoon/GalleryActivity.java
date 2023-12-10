@@ -34,6 +34,7 @@ public class GalleryActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        // W tym miejscu możesz ponownie pobrać zdjęcia z bazy danych, jeśli są zmiany.
         imageAdapter.notifyDataSetChanged();
     }
 }

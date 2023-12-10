@@ -13,11 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.File;
 import java.util.List;
 
+
 public class ImageDetailActivity extends AppCompatActivity {
 
     private int selectedImagePosition;
     private ImageAdapter imageAdapter;
     private ImageView imageView;
+    private List<byte[]> userPhotos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +31,11 @@ public class ImageDetailActivity extends AppCompatActivity {
         selectedImagePosition = getIntent().getIntExtra("position", 0);
 
         imageAdapter = new ImageAdapter(this);
+        userPhotos = imageAdapter.getUserPhotosFromDatabase();
 
-        String imagePath = imageAdapter.getImagePathByPosition(selectedImagePosition);
-        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-        imageView.setImageBitmap(bitmap);
-        imageView.setRotation(90);
+        if (userPhotos.size() > 0) {
+            updateDisplayedImage(selectedImagePosition);
+        }
 
         Button buttonNext = findViewById(R.id.next);
         buttonNext.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +63,7 @@ public class ImageDetailActivity extends AppCompatActivity {
     }
 
     private void showNextImage() {
-        if (selectedImagePosition + 1 < imageAdapter.getCount()) {
+        if (selectedImagePosition + 1 < userPhotos.size()) {
             selectedImagePosition++;
             updateDisplayedImage(selectedImagePosition);
         }
@@ -75,23 +77,31 @@ public class ImageDetailActivity extends AppCompatActivity {
     }
 
     private void updateDisplayedImage(int position) {
-        String imagePath = imageAdapter.getImagePathByPosition(position);
-        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+        byte[] imageData = userPhotos.get(position);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
         imageView.setImageBitmap(bitmap);
         imageView.setRotation(90);
     }
 
     private void deleteDisplayedImage() {
-        String imagePath = imageAdapter.getImagePathByPosition(selectedImagePosition);
+        int userId = new SessionManager(this).getUserId();
+        int imageId = selectedImagePosition + 1; // Indeksowanie od 1 w bazie danych
 
-        File file = new File(imagePath);
-        boolean isDeleted = file.delete();
+        // Usuń zdjęcie z bazy danych
+        new DBHandler(this).deleteUserImage(userId, imageId);
 
-        if (isDeleted) {
+        // Przeładuj listę zdjęć po usunięciu
+        userPhotos = imageAdapter.getUserPhotosFromDatabase();
 
-            imageAdapter.removeImagePathByPosition(selectedImagePosition);
-
+        // Wyświetl następne zdjęcie (jeśli istnieje) lub poprzednie (jeśli usuwane zdjęcie było ostatnim)
+        if (userPhotos.size() > 0) {
+            if (selectedImagePosition >= userPhotos.size()) {
+                selectedImagePosition = userPhotos.size() - 1;
+            }
             updateDisplayedImage(selectedImagePosition);
+        } else {
+            // Brak zdjęć, zrób coś odpowiedniego (np. wróć do poprzedniej aktywności)
+            finish(); // Przykładowe zakończenie aktywności, można dostosować
         }
     }
 }
