@@ -16,7 +16,6 @@ import java.util.List;
 public class ImageAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<String> mImagePaths;
     private List<byte[]> mUserPhotos;  // lista przechowująca dane zdjęć jako byte[]
     private OnItemClickListener mItemClickListener;
 
@@ -26,46 +25,27 @@ public class ImageAdapter extends BaseAdapter {
 
     public ImageAdapter(Context context) {
         mContext = context;
-        mImagePaths = getImagesFromFolder();
+        mUserPhotos = getUserPhotosFromDatabase();
     }
 
-    private List<String> getImagesFromFolder() {
-        List<String> imagePaths = new ArrayList<>();
-        File folder = new File(mContext.getFilesDir(), "photos");
-
-        if (folder.exists()) {
-            File[] files = folder.listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    imagePaths.add(file.getAbsolutePath());
-                }
-            }
-        }
-
-        return imagePaths;
-    }
-    public String getImagePathByPosition(int position) {
-        return mImagePaths.get(position);
-    }
-
-    public void removeImagePathByPosition(int position) {
-        mImagePaths.remove(position);
-        notifyDataSetChanged();
+    public List<byte[]> getUserPhotosFromDatabase() {
+        int userId = new SessionManager(mContext).getUserId();
+        return new DBHandler(mContext).getUserImages(userId);
     }
 
     @Override
     public int getCount() {
-        return mImagePaths.size();
+        return mUserPhotos.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mImagePaths.get(position);
+        return null;
     }
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return 0;
     }
 
     @Override
@@ -80,9 +60,9 @@ public class ImageAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        // Wczytaj obraz z pliku na podstawie ścieżki do pliku
-        String imagePath = mImagePaths.get(position);
-        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+        // Wczytaj obraz z danych binarnych z bazy danych
+        byte[] imageData = mUserPhotos.get(position);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
         imageView.setImageBitmap(bitmap);
 
         imageView.setRotation(90);

@@ -39,13 +39,10 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String USER_ID_COL = "userId";
     private static final String IMAGE_DATA_COL = "imageData";
 
-
-    // modify the constructor to include email, username, and password columns
     public DBHandler(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
-    // modify the onCreate method to include email, username, and password columns
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_USER_DATA + " ("
@@ -56,7 +53,6 @@ public class DBHandler extends SQLiteOpenHelper {
 
         db.execSQL(query);
 
-        // Create userImages table
         String userImagesQuery = "CREATE TABLE " + TABLE_USER_IMAGES + " ("
                 + IMAGE_ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + USER_ID_COL + " INTEGER, "
@@ -67,7 +63,6 @@ public class DBHandler extends SQLiteOpenHelper {
         Log.d("DBHandler", "Tables created.");
     }
 
-    // modify the addNewCourse method to add registration details (email, username, password)
     public void registerUser(String email, String userName, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -78,7 +73,6 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    // Add this method to check user credentials
     public boolean checkUserCredentials(String userName, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {ID_COL};
@@ -115,8 +109,6 @@ public class DBHandler extends SQLiteOpenHelper {
         return userName;
     }
 
-
-    // Add this method to insert user image
     public void insertUserImage(int userId, byte[] imageData) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -129,23 +121,34 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    // Add this method to retrieve user images
-    public byte[] getUserImage(long userId) {
+    public List<byte[]> getUserImages(int userId) {
+        List<byte[]> userImages = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {IMAGE_DATA_COL};
         String selection = USER_ID_COL + "=?";
         String[] selectionArgs = {String.valueOf(userId)};
         Cursor cursor = db.query(TABLE_USER_IMAGES, columns, selection, selectionArgs, null, null, null);
 
-        byte[] imageData = null;
         if (cursor.moveToFirst()) {
-            int imageDataColumnIndex = cursor.getColumnIndex(IMAGE_DATA_COL);
-            if (imageDataColumnIndex != -1) {
-                imageData = cursor.getBlob(imageDataColumnIndex);
-            }
+            do {
+                int imageDataColumnIndex = cursor.getColumnIndex(IMAGE_DATA_COL);
+                if (imageDataColumnIndex != -1) {
+                    byte[] imageData = cursor.getBlob(imageDataColumnIndex);
+                    userImages.add(imageData);
+                }
+            } while (cursor.moveToNext());
         }
+
         cursor.close();
-        return imageData;
+        return userImages;
+    }
+
+    public void deleteUserImage(int userId, int imageId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = USER_ID_COL + "=? AND " + IMAGE_ID_COL + "=?";
+        String[] whereArgs = {String.valueOf(userId), String.valueOf(imageId)};
+        db.delete(TABLE_USER_IMAGES, whereClause, whereArgs);
+        db.close();
     }
 
     @Override
