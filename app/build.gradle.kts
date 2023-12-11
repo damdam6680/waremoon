@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.waremoon"
-        minSdk = 24
+        minSdk = 29
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -42,4 +42,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("org.shredzone.commons:commons-suncalc:3.7")
     implementation("com.github.hannesa2:panoramagl:1.9.6")
+    implementation(project(":unityLibrary"))
+    implementation(fileTree(mapOf("dir" to ":unityLibrary", "include" to listOf("*.jar"))))
 }

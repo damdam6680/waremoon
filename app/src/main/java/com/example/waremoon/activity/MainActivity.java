@@ -13,6 +13,7 @@ import com.example.waremoon.R;
 import com.example.waremoon.handler.UserLocationHandler;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.unity3d.player.UnityPlayerActivity;
 
 import org.shredzone.commons.suncalc.MoonPosition;
 
@@ -108,8 +109,19 @@ public class MainActivity extends AppCompatActivity {
         openCompass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent compassIntent = new Intent(MainActivity.this, CompassActivity.class);
-                startActivity(compassIntent);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    ZonedDateTime now = ZonedDateTime.now();
+                    MoonPosition.Parameters moonParam = MoonPosition.compute()
+                            .at(userLocation.getLatitude(), userLocation.getLongitude())
+                            .timezone("Europe/Warsaw")
+                            .on(now);
+                    MoonPosition moon = moonParam.execute();
+                    Intent i = new Intent(MainActivity.this, UnityPlayerActivity.class);
+                    i.putExtra("longitude",(float) moon.getAzimuth());
+                    i.putExtra("latitude",(float) moon.getAltitude());
+                    startActivity(i);
+
+                }
             }
         });
 
