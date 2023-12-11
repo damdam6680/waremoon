@@ -1,4 +1,4 @@
-package com.example.waremoon;
+package com.example.waremoon.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,12 +6,16 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.waremoon.handler.CameraPreviewHandler;
+import com.example.waremoon.R;
+import com.example.waremoon.handler.SessionManagerHandler;
+
 public class PhotosActivity extends AppCompatActivity {
 
     private CameraActivity cameraActivity;
-    private CameraPreview cameraPreview;
+    private CameraPreviewHandler cameraPreview;
 
-    private SessionManager sessionManager;
+    private SessionManagerHandler sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +25,7 @@ public class PhotosActivity extends AppCompatActivity {
         cameraActivity = new CameraActivity();
         cameraPreview = findViewById(R.id.camera_preview);
 
-        sessionManager = new SessionManager(this);
+        sessionManager = new SessionManagerHandler(this);
 
         int userId = sessionManager.getUserId();
 

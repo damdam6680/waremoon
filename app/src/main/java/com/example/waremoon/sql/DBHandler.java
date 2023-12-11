@@ -1,4 +1,4 @@
-package com.example.waremoon;
+package com.example.waremoon.sql;
 
 import android.content.ContentValues;
 import android.content.Context;

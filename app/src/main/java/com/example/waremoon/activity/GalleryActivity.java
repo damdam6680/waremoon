@@ -1,10 +1,14 @@
-package com.example.waremoon;
+package com.example.waremoon.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.GridView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.waremoon.adapter.ImageAdapter;
+import com.example.waremoon.interfaces.OnItemClickListener;
+import com.example.waremoon.R;
 
 public class GalleryActivity extends AppCompatActivity {
 

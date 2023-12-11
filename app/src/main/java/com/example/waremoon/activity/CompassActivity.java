@@ -1,4 +1,4 @@
-package com.example.waremoon;
+package com.example.waremoon.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -12,13 +12,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.waremoon.handler.CameraPreviewHandler;
+import com.example.waremoon.R;
+
 public class CompassActivity extends AppCompatActivity implements SensorEventListener {
 
     private SensorManager sensorManager;
     private Sensor magnetometer;
     private Sensor accelerometer;
     private Camera mCamera;
-    private CameraPreview mPreview;
+    private CameraPreviewHandler mPreview;
     private float[] lastAccelerometer = new float[3];
     private float[] lastMagnetometer = new float[3];
     private float[] rotationMatrix = new float[9];
@@ -34,7 +37,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
 
-        CameraPreview cameraPreview = findViewById(R.id.camera_preview);
+        CameraPreviewHandler cameraPreview = findViewById(R.id.camera_preview);
 
         textViewDirection = findViewById(R.id.textViewDirection);
         textViewTilt = findViewById(R.id.textViewTilt);

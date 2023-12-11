@@ -1,4 +1,4 @@
-package com.example.waremoon;
+package com.example.waremoon.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.waremoon.R;
+import com.example.waremoon.handler.UserLocationHandler;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         TextView textView2 = findViewById(R.id.textView3);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        UserLocation userLocation = new UserLocation(fusedLocationClient);
+        UserLocationHandler userLocation = new UserLocationHandler(fusedLocationClient);
         userLocation.requestLocationPermission(MainActivity.this);
 
         String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());

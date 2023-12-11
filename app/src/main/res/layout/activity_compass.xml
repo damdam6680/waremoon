@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:text="TextView" />
 
-        <com.example.waremoon.CameraPreview
+        <com.example.waremoon.handler.CameraPreviewHandler
             android:id="@+id/camera_preview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

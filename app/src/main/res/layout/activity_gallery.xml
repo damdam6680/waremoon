@@ -8,13 +8,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp"
-        tools:context=".MainActivity">
+        tools:context=".activity.MainActivity">
 
         <GridView
             android:id="@+id/gridView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:numColumns="2"
+            android:numColumns="4"
             android:verticalSpacing="8dp"
             android:horizontalSpacing="8dp"
             android:stretchMode="columnWidth"
