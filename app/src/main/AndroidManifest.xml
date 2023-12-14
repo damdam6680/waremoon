@@ -34,7 +34,7 @@
         android:theme="@style/Theme.Waremoon"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,20 +43,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".GalleryActivity" />
+        <activity android:name=".activity.GalleryActivity" />
 
-        <activity android:name=".CompassActivity" />
+        <activity android:name=".activity.CompassActivity" />
 
-        <activity android:name=".PhotosActivity" />
+        <activity android:name=".activity.PhotosActivity" />
 
-        <activity android:name=".ImageDetailActivity" />
+        <activity android:name=".activity.ImageDetailActivity" />
 
-        <activity android:name=".PanoramaActivity" />
+        <activity android:name=".activity.PanoramaActivity" />
 
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".activity.LoginActivity" />
 
-        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".activity.RegistrationActivity" />
 
-        <activity android:name=".Test" />
+        <activity android:name=".activity.Test" />
     </application>
 </manifest>

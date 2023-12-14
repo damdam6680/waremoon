@@ -1,4 +1,4 @@
-package com.example.waremoon;
+package com.example.waremoon.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,21 +8,19 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.waremoon.GalleryActivity;
-import com.example.waremoon.PhotosActivity;
 import com.example.waremoon.R;
-import com.example.waremoon.SessionManager;
+import com.example.waremoon.handler.SessionManagerHandler;
 
 public class Test extends AppCompatActivity {
 
-    private SessionManager sessionManager;
+    private SessionManagerHandler sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        sessionManager = new SessionManager(this);
+        sessionManager = new SessionManagerHandler(this);
 
         // Odbierz nazwę użytkownika przekazaną z LoginActivity
         String userName = sessionManager.getUserName();
@@ -55,5 +53,26 @@ public class Test extends AppCompatActivity {
                 startActivity(cameraIntent);
             }
         });
+
+        Button userButton = findViewById(R.id.userButton);
+        userButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Tworzymy nową intencję, aby uruchomić aktywność GalleryActivity
+                Intent loginIntent = new Intent(Test.this, LoginActivity.class);
+                startActivity(loginIntent);
+            }
+        });
+
+        Button panoramaButton = findViewById(R.id.panoramaButton);
+        panoramaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Tworzymy nową intencję, aby uruchomić aktywność GalleryActivity
+                Intent panoramaIntent = new Intent(Test.this, PanoramaActivity.class);
+                startActivity(panoramaIntent);
+            }
+        });
+
     }
 }

@@ -1,9 +1,9 @@
-package com.example.waremoon;
+package com.example.waremoon.handler;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class SessionManager {
+public class SessionManagerHandler {
     private static final String PREF_NAME = "UserSession";
     private static final String KEY_USER_ID = "user_id";
     private static final String KEY_USER_NAME = "user_name";
@@ -11,7 +11,7 @@ public class SessionManager {
 
     private SharedPreferences sharedPreferences;
 
-    public SessionManager(Context context) {
+    public SessionManagerHandler(Context context) {
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 

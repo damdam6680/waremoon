@@ -1,4 +1,4 @@
-package com.example.waremoon;
+package com.example.waremoon.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.waremoon.sql.DBHandler;
+import com.example.waremoon.R;
+import com.example.waremoon.handler.SessionManagerHandler;
+
 public class LoginActivity extends AppCompatActivity {
     private EditText userNameTextField, passwordTextField;
-    private SessionManager sessionManager;
+    private SessionManagerHandler sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
 
         userNameTextField = findViewById(R.id.userNameTextField);
         passwordTextField = findViewById(R.id.passwordTextField);
-        sessionManager = new SessionManager(this);
+        sessionManager = new SessionManagerHandler(this);
 
         Button loginButton = findViewById(R.id.login);
         loginButton.setOnClickListener(new View.OnClickListener() {

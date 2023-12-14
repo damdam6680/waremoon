@@ -1,4 +1,4 @@
-package com.example.waremoon;
+package com.example.waremoon.handler;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -12,21 +12,20 @@ import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import com.example.waremoon.activity.CameraActivity;
+import com.example.waremoon.sql.DBHandler;
+
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * A basic Camera preview class
  */
 @SuppressLint("ViewConstructor")
-public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
+public class CameraPreviewHandler extends SurfaceView implements SurfaceHolder.Callback {
     private final SurfaceHolder mHolder;
     private final Camera mCamera;
 
-    public CameraPreview(Context context, AttributeSet attrs) {
+    public CameraPreviewHandler(Context context, AttributeSet attrs) {
         super(context, attrs);
         mCamera = CameraActivity.getCameraInstance((Activity) context);
 
@@ -36,7 +35,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
     }
 
-    public CameraPreview(Context context, AttributeSet attrs, int defStyle) {
+    public CameraPreviewHandler(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mCamera = CameraActivity.getCameraInstance((Activity) context);
 
@@ -127,15 +126,6 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         }
         camera.setDisplayOrientation(result);
     }
-
-//    public void takePicture() {
-//        if (mCamera != null) {
-//            mCamera.takePicture(null, null, pictureCallback);
-//        } else {
-//            Log.e("CameraPreview", "Camera is null");
-//        }
-//    }
-
     public void takePicture(final int userId) {
         if (mCamera != null) {
             mCamera.takePicture(null, null, new Camera.PictureCallback() {

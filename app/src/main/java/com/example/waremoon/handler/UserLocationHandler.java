@@ -1,4 +1,4 @@
-package com.example.waremoon;
+package com.example.waremoon.handler;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -14,13 +14,13 @@ import androidx.core.content.ContextCompat;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-public class UserLocation {
+public class UserLocationHandler {
     private FusedLocationProviderClient fusedLocationClient;
     private static final int LOCATION_PERMISSION_REQUEST = 1;
     private double latitude;
     private double longitude;
 
-    public UserLocation(FusedLocationProviderClient fusedLocationClient) {
+    public UserLocationHandler(FusedLocationProviderClient fusedLocationClient) {
         this.fusedLocationClient = fusedLocationClient;
     }
 

@@ -1,8 +1,7 @@
-package com.example.waremoon;
+package com.example.waremoon.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +9,11 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.File;
+import com.example.waremoon.sql.DBHandler;
+import com.example.waremoon.adapter.ImageAdapter;
+import com.example.waremoon.R;
+import com.example.waremoon.handler.SessionManagerHandler;
+
 import java.util.List;
 
 
@@ -84,7 +87,7 @@ public class ImageDetailActivity extends AppCompatActivity {
     }
 
     private void deleteDisplayedImage() {
-        int userId = new SessionManager(this).getUserId();
+        int userId = new SessionManagerHandler(this).getUserId();
         int imageId = selectedImagePosition + 1; // Indeksowanie od 1 w bazie danych
 
         // Usuń zdjęcie z bazy danych

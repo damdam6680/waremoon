@@ -1,4 +1,4 @@
-package com.example.waremoon;
+package com.example.waremoon.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.waremoon.sql.DBHandler;
+import com.example.waremoon.R;
 
 public class RegistrationActivity extends AppCompatActivity {
 

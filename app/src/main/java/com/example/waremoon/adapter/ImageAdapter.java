@@ -1,4 +1,4 @@
-package com.example.waremoon;
+package com.example.waremoon.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,8 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import java.io.File;
-import java.util.ArrayList;
+import com.example.waremoon.sql.DBHandler;
+import com.example.waremoon.interfaces.OnItemClickListener;
+import com.example.waremoon.handler.SessionManagerHandler;
+
 import java.util.List;
 
 public class ImageAdapter extends BaseAdapter {
@@ -29,7 +31,7 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     public List<byte[]> getUserPhotosFromDatabase() {
-        int userId = new SessionManager(mContext).getUserId();
+        int userId = new SessionManagerHandler(mContext).getUserId();
         return new DBHandler(mContext).getUserImages(userId);
     }
 
