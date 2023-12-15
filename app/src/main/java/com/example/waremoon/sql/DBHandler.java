@@ -143,6 +143,28 @@ public class DBHandler extends SQLiteOpenHelper {
         return userImages;
     }
 
+    public List<Integer> getImageIds(int userId) {
+        List<Integer> imageIds = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {IMAGE_ID_COL};
+        String selection = USER_ID_COL + "=?";
+        String[] selectionArgs = {String.valueOf(userId)};
+        Cursor cursor = db.query(TABLE_USER_IMAGES, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int imageIdColumnIndex = cursor.getColumnIndex(IMAGE_ID_COL);
+                if (imageIdColumnIndex != -1) {
+                    int imageId = cursor.getInt(imageIdColumnIndex);
+                    imageIds.add(imageId);
+                }
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return imageIds;
+    }
+
     public void deleteUserImage(int userId, int imageId) {
         SQLiteDatabase db = this.getWritableDatabase();
         String whereClause = USER_ID_COL + "=? AND " + IMAGE_ID_COL + "=?";

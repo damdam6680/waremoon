@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                     // Zapisz dane użytkownika w sesji
                     sessionManager.setUserData(userId, userNameFromDB);
 
-                    Intent intent = new Intent(LoginActivity.this, Test.class);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
                     // Show an error message or handle the invalid login
