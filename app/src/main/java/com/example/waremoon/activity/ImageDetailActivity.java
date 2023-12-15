@@ -20,6 +20,7 @@ import java.util.List;
 public class ImageDetailActivity extends AppCompatActivity {
 
     private int selectedImagePosition;
+    private int selectedImageId;
     private ImageAdapter imageAdapter;
     private ImageView imageView;
     private List<byte[]> userPhotos;
@@ -32,6 +33,7 @@ public class ImageDetailActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageDetailImageView);
 
         selectedImagePosition = getIntent().getIntExtra("position", 0);
+        selectedImageId = getIntent().getIntExtra("imageId", 0);
 
         imageAdapter = new ImageAdapter(this);
         userPhotos = imageAdapter.getUserPhotosFromDatabase();
@@ -88,7 +90,7 @@ public class ImageDetailActivity extends AppCompatActivity {
 
     private void deleteDisplayedImage() {
         int userId = new SessionManagerHandler(this).getUserId();
-        int imageId = selectedImagePosition + 1; // Indeksowanie od 1 w bazie danych
+        int imageId = selectedImageId;
 
         // Usuń zdjęcie z bazy danych
         new DBHandler(this).deleteUserImage(userId, imageId);
@@ -101,10 +103,11 @@ public class ImageDetailActivity extends AppCompatActivity {
             if (selectedImagePosition >= userPhotos.size()) {
                 selectedImagePosition = userPhotos.size() - 1;
             }
+            setResult(RESULT_OK);
             updateDisplayedImage(selectedImagePosition);
         } else {
-            // Brak zdjęć, zrób coś odpowiedniego (np. wróć do poprzedniej aktywności)
-            finish(); // Przykładowe zakończenie aktywności, można dostosować
+            setResult(RESULT_CANCELED);
         }
+        finish();
     }
 }

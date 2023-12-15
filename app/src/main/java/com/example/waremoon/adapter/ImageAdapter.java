@@ -18,7 +18,8 @@ import java.util.List;
 public class ImageAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<byte[]> mUserPhotos;  // lista przechowująca dane zdjęć jako byte[]
+    private List<byte[]> mUserPhotos;
+    private List<Integer> mImageIds;
     private OnItemClickListener mItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -28,11 +29,17 @@ public class ImageAdapter extends BaseAdapter {
     public ImageAdapter(Context context) {
         mContext = context;
         mUserPhotos = getUserPhotosFromDatabase();
+        mImageIds = getImageIdsFromDatabase();
     }
 
     public List<byte[]> getUserPhotosFromDatabase() {
         int userId = new SessionManagerHandler(mContext).getUserId();
         return new DBHandler(mContext).getUserImages(userId);
+    }
+
+    public List<Integer> getImageIdsFromDatabase() {
+        int userId = new SessionManagerHandler(mContext).getUserId();
+        return new DBHandler(mContext).getImageIds(userId);
     }
 
     @Override
@@ -42,12 +49,12 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mImageIds.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return mImageIds.get(position);
     }
 
     @Override
@@ -74,11 +81,16 @@ public class ImageAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (mItemClickListener != null) {
-                    mItemClickListener.onItemClick(position);
+                    mItemClickListener.onItemClick(position, mImageIds.get(position));
                 }
             }
         });
 
         return imageView;
+    }
+
+    public void updateUserPhotos() {
+        mUserPhotos = getUserPhotosFromDatabase();
+        mImageIds = getImageIdsFromDatabase();
     }
 }

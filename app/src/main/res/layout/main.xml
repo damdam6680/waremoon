@@ -13,25 +13,36 @@
         <!-- Header Section -->
 
         <!-- User Section -->
+
         <Button
             android:id="@+id/userButton"
-            android:layout_width="36dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="28dp"
+            android:layout_width="100dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:text="Button"
+            android:text="Zaloguj"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/userButton2"
+            android:layout_width="100dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="Wyloguj"
+            app:layout_constraintStart_toEndOf="@+id/userButton"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView5"
             style="@style/boldText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="169dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="20dp"
             android:text="Aplikacja Astronomiczna"
-            app:layout_constraintStart_toEndOf="@+id/backButton"
+            app:layout_constraintStart_toEndOf="@+id/userButton2"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView

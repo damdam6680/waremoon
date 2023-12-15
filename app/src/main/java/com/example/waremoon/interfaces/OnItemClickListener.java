@@ -1,5 +1,5 @@
 package com.example.waremoon.interfaces;
 
 public interface OnItemClickListener {
-    void onItemClick(int position);
+    void onItemClick(int position, int imageId);
 }
