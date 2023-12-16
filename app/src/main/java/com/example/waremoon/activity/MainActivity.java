@@ -1,6 +1,7 @@
 package com.example.waremoon.activity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SessionManagerHandler sessionManager;
     private FusedLocationProviderClient fusedLocationClient;
+    private MediaPlayer mediaPlayer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         moonButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                play();
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                     ZonedDateTime now = ZonedDateTime.now();
                     MoonPosition.Parameters moonParam = MoonPosition.compute()
@@ -69,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         galleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                play();
                 if (sessionManager.isLoggedIn()) {
                     Intent galleryIntent = new Intent(MainActivity.this, GalleryActivity.class);
                     startActivity(galleryIntent);
@@ -82,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                play();
                 if (sessionManager.isLoggedIn()) {
                     long userId = sessionManager.getUserId();
 
@@ -98,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         userButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                play();
                 Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
             }
@@ -107,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
         userButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                play();
                 sessionManager.logoutUser();
-
                 updateUIAfterLogout();
             }
         });
@@ -117,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         panoramaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                play();
                 Intent panoramaIntent = new Intent(MainActivity.this, PanoramaActivity.class);
                 startActivity(panoramaIntent);
             }
@@ -127,5 +134,13 @@ public class MainActivity extends AppCompatActivity {
     private void updateUIAfterLogout() {
         TextView userTextView = findViewById(R.id.userTextView);
         userTextView.setText("Zalogowany użytkownik: ");
+    }
+
+
+    private void play() {
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(this, R.raw.click2);
+        }
+        mediaPlayer.start();
     }
 }
