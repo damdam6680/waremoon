@@ -34,12 +34,18 @@ public class ImageAdapter extends BaseAdapter {
 
     public List<byte[]> getUserPhotosFromDatabase() {
         int userId = new SessionManagerHandler(mContext).getUserId();
-        return new DBHandler(mContext).getUserImages(userId);
+        DBHandler dbHandler = new DBHandler(mContext);
+        List<byte[]> userPhotos = dbHandler.getUserImages(userId);
+        dbHandler.close();
+        return userPhotos;
     }
 
     public List<Integer> getImageIdsFromDatabase() {
         int userId = new SessionManagerHandler(mContext).getUserId();
-        return new DBHandler(mContext).getImageIds(userId);
+        DBHandler dbHandler = new DBHandler(mContext);
+        List<Integer> imageIds = dbHandler.getImageIds(userId);
+        dbHandler.close();
+        return imageIds;
     }
 
     @Override
