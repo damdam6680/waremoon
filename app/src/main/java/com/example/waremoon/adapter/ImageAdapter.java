@@ -18,6 +18,7 @@ import java.util.List;
 public class ImageAdapter extends BaseAdapter {
 
     private Context mContext;
+    
     private List<byte[]> mUserPhotos;
     private List<Integer> mImageIds;
     private OnItemClickListener mItemClickListener;
