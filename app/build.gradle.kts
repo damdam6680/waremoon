@@ -5,7 +5,7 @@ plugins {
 android {
     namespace = "com.example.waremoon"
     compileSdk = 34
-
+    ndkVersion = "26.1.10909125"
     defaultConfig {
         applicationId = "com.example.waremoon"
         minSdk = 29

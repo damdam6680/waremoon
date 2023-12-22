@@ -1,146 +1,71 @@
 package com.example.waremoon.activity;
 
-import android.content.Intent;
-import android.media.MediaPlayer;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.waremoon.AboutFragment;
+import com.example.waremoon.HomeFragment;
 import com.example.waremoon.R;
-import com.example.waremoon.handler.SessionManagerHandler;
-import com.example.waremoon.handler.UserLocationHandler;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.unity3d.player.UnityPlayerActivity;
+import com.example.waremoon.SettingsFragment;
+import com.example.waremoon.ShareFragment;
+import com.google.android.material.navigation.NavigationView;
 
-import org.shredzone.commons.suncalc.MoonPosition;
-
-import java.time.ZonedDateTime;
-
-public class MainActivity extends AppCompatActivity {
-
-    private SessionManagerHandler sessionManager;
-    private FusedLocationProviderClient fusedLocationClient;
-    private MediaPlayer mediaPlayer = null;
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        UserLocationHandler userLocation = new UserLocationHandler(fusedLocationClient);
-        userLocation.requestLocationPermission(MainActivity.this);
-
-        Button moonButton = findViewById(R.id.moonButton);
-        moonButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                play();
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    ZonedDateTime now = ZonedDateTime.now();
-                    MoonPosition.Parameters moonParam = MoonPosition.compute()
-                            .at(userLocation.getLatitude(), userLocation.getLongitude())
-                            .timezone("Europe/Warsaw")
-                            .on(now);
-                    MoonPosition moon = moonParam.execute();
-                    Intent i = new Intent(MainActivity.this, UnityPlayerActivity.class);
-                    i.putExtra("longitude", (float) moon.getAzimuth());
-                    i.putExtra("latitude", (float) moon.getAltitude());
-                    startActivity(i);
-
-                }
-            }
-        });
-
-        sessionManager = new SessionManagerHandler(this);
-
-        if (sessionManager.isLoggedIn()) {
-            String userName = sessionManager.getUserName();
-            String userId = String.valueOf(sessionManager.getUserId());
-
-            TextView userTextView = findViewById(R.id.userTextView);
-            userTextView.setText("Zalogowany użytkownik: " + userName + userId);
+        setContentView(R.layout.activity_test);
+        Toolbar toolbar = findViewById(R.id.toolbar); //Ignore red line errors
+        setSupportActionBar(toolbar);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav,
+                R.string.close_nav);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_home);
         }
-
-
-        Button galleryButton = findViewById(R.id.galleryButton);
-        galleryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                play();
-                if (sessionManager.isLoggedIn()) {
-                    Intent galleryIntent = new Intent(MainActivity.this, GalleryActivity.class);
-                    startActivity(galleryIntent);
-                } else {
-                    Toast.makeText(MainActivity.this, "Musisz być zalogowany, aby skorzystać z tej funkcji", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        Button cameraButton = findViewById(R.id.cameraButton);
-        cameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                play();
-                if (sessionManager.isLoggedIn()) {
-                    long userId = sessionManager.getUserId();
-
-                    Intent cameraIntent = new Intent(MainActivity.this, PhotosActivity.class);
-                    cameraIntent.putExtra("USER_ID", userId);
-                    startActivity(cameraIntent);
-                } else {
-                    Toast.makeText(MainActivity.this, "Musisz być zalogowany, aby skorzystać z tej funkcji", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        Button userButton = findViewById(R.id.userButton);
-        userButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                play();
-                Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(loginIntent);
-            }
-        });
-
-        Button userButton2 = findViewById(R.id.userButton2);
-        userButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                play();
-                sessionManager.logoutUser();
-                updateUIAfterLogout();
-            }
-        });
-
-        Button panoramaButton = findViewById(R.id.panoramaButton);
-        panoramaButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                play();
-                Intent panoramaIntent = new Intent(MainActivity.this, PanoramaActivity.class);
-                startActivity(panoramaIntent);
-            }
-        });
-
     }
 
-    private void updateUIAfterLogout() {
-        TextView userTextView = findViewById(R.id.userTextView);
-        userTextView.setText("Zalogowany użytkownik: ");
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.nav_home) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        } else if (itemId == R.id.nav_settings) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
+        } else if (itemId == R.id.nav_share) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ShareFragment()).commit();
+        } else if (itemId == R.id.nav_about) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AboutFragment()).commit();
+        } else if (itemId == R.id.nav_logout) {
+            Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show();
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 
-
-    private void play() {
-        if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.click2);
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
-        mediaPlayer.start();
     }
 }

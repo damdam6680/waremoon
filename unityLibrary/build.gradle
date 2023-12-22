@@ -8,7 +8,7 @@ dependencies {
 }
 
 android {
-    ndkPath "F:/Nowy folder (6)/2022.3.14f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK"
+//    ndkPath "F:/Nowy folder (6)/2022.3.14f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK"
 
     compileSdkVersion 31
     buildToolsVersion '33.0.1'

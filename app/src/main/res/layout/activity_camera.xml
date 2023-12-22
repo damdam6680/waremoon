@@ -9,10 +9,10 @@
         android:id="@+id/camera_preview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/takePhoto"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/takePhoto"
@@ -20,9 +20,22 @@
         android:layout_height="72dp"
         android:layout_margin="16dp"
         android:background="@drawable/circle_button_background"
-        app:layout_constraintTop_toBottomOf="@+id/camera_preview"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/camera_preview" />
+
+    <Button
+        android:id="@+id/torch"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/circle_button_background"
+        android:text="flash light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.852"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/camera_preview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
