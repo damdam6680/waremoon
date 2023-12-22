@@ -56,7 +56,7 @@ sysinfo.txt
 Icon?
 ehthumbs.db
 Thumbs.db
-
+**/unity
 .gradle
 **/build/
 !src/**/build/
