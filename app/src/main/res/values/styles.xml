@@ -10,9 +10,7 @@
     </style>
 
     <style name="WhiteButtonStyle">
-        <item name="android:background">@drawable/button_background</item>
         <item name="android:textColor">@android:color/black</item>
-        <!-- Dodaj inne właściwości stylu, jeśli są potrzebne -->
     </style>
 
 </resources>

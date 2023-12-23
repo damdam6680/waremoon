@@ -44,4 +44,6 @@ dependencies {
     implementation("com.github.hannesa2:panoramagl:1.9.6")
     implementation(project(":unityLibrary"))
     implementation(fileTree(mapOf("dir" to ":unityLibrary", "include" to listOf("*.jar"))))
+    implementation("com.github.denzcoskun:ImageSlideshow:0.1.2")
+    implementation("com.squareup.picasso:picasso:2.71828")
 }
