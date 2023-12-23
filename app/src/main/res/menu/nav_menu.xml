@@ -20,9 +20,9 @@
             android:title="Share"/>
 
         <item
-            android:id="@+id/nav_about"
-            android:icon="@drawable/nav_about"
-            android:title="About Us"/>
+            android:id="@+id/nav_news"
+            android:icon="@drawable/nav_news"
+            android:title="News"/>
     </group>
     <item
         android:title="">
@@ -31,7 +31,7 @@
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/nav_logout"
-                android:title="logout"/>
+                android:title=""/>
         </menu>
     </item>
 </menu>

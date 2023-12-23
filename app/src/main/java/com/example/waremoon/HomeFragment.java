@@ -68,14 +68,6 @@ public class HomeFragment extends Fragment {
 
         sessionManager = new SessionManagerHandler(requireActivity());
 
-        if (sessionManager.isLoggedIn()) {
-            String userName = sessionManager.getUserName();
-            String userId = String.valueOf(sessionManager.getUserId());
-
-            TextView userTextView = view.findViewById(R.id.userTextView);
-            userTextView.setText("Zalogowany użytkownik: " + userName + userId);
-        }
-
         Button galleryButton = view.findViewById(R.id.galleryButton);
         galleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +88,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 play();
                 if (sessionManager.isLoggedIn()) {
-                    long userId = sessionManager.getUserId();
+                    int userId = sessionManager.getUserId();
 
                     Intent cameraIntent = new Intent(requireActivity(), PhotosActivity.class);
                     cameraIntent.putExtra("USER_ID", userId);
@@ -104,26 +96,6 @@ public class HomeFragment extends Fragment {
                 } else {
                     Toast.makeText(requireActivity(), "Musisz być zalogowany, aby skorzystać z tej funkcji", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-
-        Button userButton = view.findViewById(R.id.userButton);
-        userButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                play();
-                Intent loginIntent = new Intent(requireActivity(), LoginActivity.class);
-                startActivity(loginIntent);
-            }
-        });
-
-        Button userButton2 = view.findViewById(R.id.userButton2);
-        userButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                play();
-                sessionManager.logoutUser();
-                updateUIAfterLogout(view);
             }
         });
 
@@ -138,11 +110,6 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
-    }
-
-    private void updateUIAfterLogout(View view) {
-        TextView userTextView = view.findViewById(R.id.userTextView);
-        userTextView.setText("Zalogowany użytkownik: ");
     }
 
     private void play() {

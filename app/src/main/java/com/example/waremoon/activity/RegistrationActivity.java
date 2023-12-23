@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +16,6 @@ import com.example.waremoon.R;
 public class RegistrationActivity extends AppCompatActivity {
 
     private EditText emailTextField, userNameTextField, passwordTextField;
-    private Button registration;
     private DBHandler dbHandler;
 
     @Override
@@ -23,8 +23,8 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        Button loginButton = findViewById(R.id.login);
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        TextView loginLink = findViewById(R.id.login);
+        loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent registrationIntent = new Intent(RegistrationActivity.this, LoginActivity.class);
@@ -35,7 +35,7 @@ public class RegistrationActivity extends AppCompatActivity {
         emailTextField = findViewById(R.id.emailTextField);
         userNameTextField = findViewById(R.id.userNameTextField);
         passwordTextField = findViewById(R.id.passwordTextField);
-        registration = findViewById(R.id.registration);
+        Button registration = findViewById(R.id.registration);
 
         dbHandler = new DBHandler(RegistrationActivity.this);
 

@@ -10,63 +10,6 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white">
 
-        <!-- Header Section -->
-
-        <!-- User Section -->
-
-        <Button
-            android:id="@+id/userButton"
-            android:layout_width="100dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:text="Zaloguj"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/userButton2"
-            android:layout_width="100dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:text="Wyloguj"
-            app:layout_constraintStart_toEndOf="@+id/userButton"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView5"
-            style="@style/boldText"
-            android:layout_width="169dp"
-            android:layout_height="21dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="20dp"
-            android:text="Aplikacja Astronomiczna"
-            app:layout_constraintStart_toEndOf="@+id/userButton2"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/userImageView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/circle_button_background"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-        <!-- Button Layout Section -->
-        <TextView
-            android:id="@+id/userTextView"
-            style="@style/boldText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Zalogowany użytkownik"
-            app:layout_constraintStart_toEndOf="@+id/userImageView"
-            app:layout_constraintTop_toTopOf="@+id/userImageView" />
-
         <LinearLayout
             android:id="@+id/buttonLayout"
             android:layout_width="0dp"
@@ -76,8 +19,7 @@
             android:layout_marginEnd="16dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userImageView">
+            app:layout_constraintStart_toStartOf="parent">
 
             <LinearLayout
                 android:id="@+id/buttonLayout2"
@@ -100,7 +42,7 @@
                         android:layout_height="100dp"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:background="@drawable/circle_background"
+                        android:background="@drawable/circle_button_background"
                         android:text="🌙"
                         android:textSize="40sp" />
 
@@ -135,7 +77,7 @@
                         android:layout_height="100dp"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:background="@drawable/circle_background"
+                        android:background="@drawable/circle_button_background"
                         android:text="⭐️"
                         android:textSize="40sp" />
 
@@ -170,7 +112,7 @@
                         android:layout_height="100dp"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:background="@drawable/circle_background"
+                        android:background="@drawable/circle_button_background"
                         android:text="🌌"
                         android:textSize="40sp" />
 
@@ -186,20 +128,6 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/seeMoreButton"
-            style="@style/WhiteButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="Zobacz więcej"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonLayout" />
-
-
         <TextView
             android:id="@+id/textView6"
             style="@style/boldText"
@@ -211,7 +139,7 @@
             android:text="Położenie Księżyca"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/seeMoreButton" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonLayout" />
 
         <ImageView
             android:id="@+id/moonImageView"
@@ -257,8 +185,9 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_button"
+                android:background="@color/lavender"
                 android:padding="10dp"
+                android:radius="12dp"
                 android:text="Dzisiaj"
                 android:textSize="12sp" />
 
@@ -270,8 +199,9 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_button"
+                android:background="@color/lavender"
                 android:padding="10dp"
+                android:radius="12dp"
                 android:text="Jutro"
                 android:textSize="12sp" />
 
@@ -282,8 +212,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_button"
+                android:background="@color/lavender"
                 android:padding="10dp"
+                android:radius="12dp"
                 android:text="Następny"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -292,7 +223,7 @@
             android:layout_width="392dp"
             android:layout_height="104dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="484dp"
+            android:layout_marginTop="424dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/border_background"
             android:orientation="horizontal"
@@ -359,7 +290,7 @@
             android:layout_width="382dp"
             android:layout_height="114dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="876dp"
+            android:layout_marginTop="700dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="34dp"
             android:orientation="horizontal"
@@ -391,6 +322,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="71dp"
                         android:layout_weight="1"
+                        android:background="@color/lavender"
                         android:text="📷️"
                         android:textSize="30sp"
                         app:layout_constraintDimensionRatio="1:1" />
@@ -428,6 +360,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="82dp"
                         android:layout_weight="1"
+                        android:background="@color/lavender"
                         android:text="🔭"
                         android:textSize="30sp"
                         app:layout_constraintDimensionRatio="1:1" />
@@ -464,6 +397,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="82dp"
                         android:layout_weight="1"
+                        android:background="@color/lavender"
                         android:text="🌠"
                         android:textSize="30sp"
                         app:layout_constraintDimensionRatio="1:1" />
