@@ -46,8 +46,6 @@
 
         <activity android:name=".activity.GalleryActivity" />
 
-        <activity android:name=".activity.CompassActivity" />
-
         <activity android:name=".activity.PhotosActivity" />
 
         <activity android:name=".activity.ImageDetailActivity" />
@@ -58,6 +56,5 @@
 
         <activity android:name=".activity.RegistrationActivity" />
 
-        <activity android:name=".activity.Test" />
     </application>
 </manifest>

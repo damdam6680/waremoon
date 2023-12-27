@@ -16,10 +16,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.waremoon.NewsFragment;
-import com.example.waremoon.HomeFragment;
+import com.example.waremoon.MoonFragment;
+import com.example.waremoon.SunFragment;
 import com.example.waremoon.R;
-import com.example.waremoon.SettingsFragment;
-import com.example.waremoon.ShareFragment;
+import com.example.waremoon.CameraFragment;
+import com.example.waremoon.GalleryFragment;
 import com.example.waremoon.handler.SessionManagerHandler;
 import com.google.android.material.navigation.NavigationView;
 
@@ -50,8 +51,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         toggle.syncState();
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_home);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MoonFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_moon);
         }
 
         updateUI();
@@ -61,21 +62,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
 
-        if (itemId == R.id.nav_home) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-        } else if (itemId == R.id.nav_settings) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
-        } else if (itemId == R.id.nav_share) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ShareFragment()).commit();
+        if (itemId == R.id.nav_moon) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MoonFragment()).commit();
+        } else if (itemId == R.id.nav_camera) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CameraFragment()).commit();
+        } else if (itemId == R.id.nav_gallery) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new GalleryFragment()).commit();
         } else if (itemId == R.id.nav_news) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NewsFragment()).commit();
+        } else if (itemId == R.id.nav_sun) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SunFragment()).commit();
         } else if (itemId == R.id.nav_logout) {
             if (sessionManager.isLoggedIn()) {
                 sessionManager.logoutUser();
 
                 updateUI();
-            }
-            else {
+            } else {
                 Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
             }

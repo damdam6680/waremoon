@@ -1,9 +1,6 @@
 package com.example.waremoon.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,25 +14,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class PhotosActivity extends AppCompatActivity {
 
-    private CameraActivity cameraActivity;
     private CameraPreviewHandler cameraPreview;
-
-    private SessionManagerHandler sessionManager;
-
-    private CameraManager cameraManager;
-    private String cameraId;
-    private boolean torchOn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        cameraActivity = new CameraActivity();
         cameraPreview = findViewById(R.id.camera_preview);
 
-        sessionManager = new SessionManagerHandler(this);
+        SessionManagerHandler sessionManager = new SessionManagerHandler(this);
 
         int userId = sessionManager.getUserId();
 
@@ -46,7 +34,6 @@ public class PhotosActivity extends AppCompatActivity {
                 cameraPreview.takePicture(userId);
             }
         });
-
 
         FloatingActionButton cameraButton = findViewById(R.id.gallery);
 
@@ -61,5 +48,12 @@ public class PhotosActivity extends AppCompatActivity {
                 startActivity(cameraIntent);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        CameraActivity.releaseCamera(cameraPreview.getCameraInstance());
+
+        super.onDestroy();
     }
 }

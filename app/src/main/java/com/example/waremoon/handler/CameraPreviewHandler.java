@@ -79,10 +79,6 @@ public class CameraPreviewHandler extends SurfaceView implements SurfaceHolder.C
             // ignore: tried to stop a non-existent preview
         }
 
-        // set preview size and make any resize, rotate or
-        // reformatting changes here
-
-        // start preview with new settings
         try {
             mCamera.setPreviewDisplay(mHolder);
 
@@ -142,5 +138,9 @@ public class CameraPreviewHandler extends SurfaceView implements SurfaceHolder.C
         } else {
             Log.e("CameraPreview", "Camera is null");
         }
+    }
+
+    public Camera getCameraInstance() {
+        return mCamera;
     }
 }
