@@ -33,7 +33,6 @@ public class CameraActivity {
     public static Camera getCameraInstance(Activity activity) {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
-            // Request the permission.
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA},
                     CAMERA_PERMISSION_REQUEST_CODE);
 
@@ -43,10 +42,16 @@ public class CameraActivity {
         try {
             camera = Camera.open(); // attempt to get a Camera instance
         } catch (Exception e) {
-            // Camera is not available (in use or does not exist)
             Log.e("CameraActivity", "Error opening camera: " + e.getMessage());
         }
 
-        return camera; // returns null if camera is unavailable
+        return camera;
     }
+
+    public static void releaseCamera(Camera camera) {
+        if (camera != null) {
+            camera.release();
+        }
+    }
+
 }

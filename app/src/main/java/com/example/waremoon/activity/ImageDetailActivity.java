@@ -2,6 +2,7 @@ package com.example.waremoon.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import com.example.waremoon.sql.DBHandler;
 import com.example.waremoon.adapter.ImageAdapter;
 import com.example.waremoon.R;
 import com.example.waremoon.handler.SessionManagerHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -58,7 +60,7 @@ public class ImageDetailActivity extends AppCompatActivity {
             }
         });
 
-        Button buttonDelete = findViewById(R.id.delete);
+        FloatingActionButton buttonDelete = findViewById(R.id.delete);
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,8 +86,12 @@ public class ImageDetailActivity extends AppCompatActivity {
     private void updateDisplayedImage(int position) {
         byte[] imageData = userPhotos.get(position);
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90);
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
         imageView.setImageBitmap(bitmap);
-        imageView.setRotation(90);
     }
 
     private void deleteDisplayedImage() {
@@ -99,7 +105,7 @@ public class ImageDetailActivity extends AppCompatActivity {
         userPhotos = imageAdapter.getUserPhotosFromDatabase();
 
         // Wyświetl następne zdjęcie (jeśli istnieje) lub poprzednie (jeśli usuwane zdjęcie było ostatnim)
-        if (userPhotos.size() > 0) {
+        if (userPhotos.size() >= 0) {
             if (selectedImagePosition >= userPhotos.size()) {
                 selectedImagePosition = userPhotos.size() - 1;
             }

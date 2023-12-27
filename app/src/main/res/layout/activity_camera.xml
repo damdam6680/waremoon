@@ -29,7 +29,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginBottom="30dp"
         android:backgroundTint="@color/lavender"
-        android:src="@drawable/cam_img"
+        android:src="@drawable/cam_gla"
         app:tint="@color/white" />
 
 </RelativeLayout>
