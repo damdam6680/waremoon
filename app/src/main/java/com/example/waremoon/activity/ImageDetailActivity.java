@@ -98,13 +98,10 @@ public class ImageDetailActivity extends AppCompatActivity {
         int userId = new SessionManagerHandler(this).getUserId();
         int imageId = selectedImageId;
 
-        // Usuń zdjęcie z bazy danych
         new DBHandler(this).deleteUserImage(userId, imageId);
 
-        // Przeładuj listę zdjęć po usunięciu
         userPhotos = imageAdapter.getUserPhotosFromDatabase();
 
-        // Wyświetl następne zdjęcie (jeśli istnieje) lub poprzednie (jeśli usuwane zdjęcie było ostatnim)
         if (userPhotos.size() >= 0) {
             if (selectedImagePosition >= userPhotos.size()) {
                 selectedImagePosition = userPhotos.size() - 1;

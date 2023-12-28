@@ -25,6 +25,11 @@
             android:title="Galeria"/>
 
         <item
+            android:id="@+id/nav_torch"
+            android:icon="@drawable/nav_torch"
+            android:title="Latarka (Wyłączona)"/>
+
+        <item
             android:id="@+id/nav_news"
             android:icon="@drawable/nav_news"
             android:title="News"/>

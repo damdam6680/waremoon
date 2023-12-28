@@ -31,30 +31,24 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Retrieve user input
                 String userName = userNameTextField.getText().toString().trim();
                 String password = passwordTextField.getText().toString().trim();
 
-                // W LoginActivity, w sekcji, gdzie przechodzisz do następnego activity
                 if (isValidLogin(userName, password)) {
-                    // Pobierz dodatkowe informacje o użytkowniku z bazy danych
                     DBHandler dbHandler = new DBHandler(LoginActivity.this);
                     int userId = dbHandler.getUserId(userName);
                     String userNameFromDB = dbHandler.getUserName(userId);
 
-                    // Zapisz dane użytkownika w sesji
                     sessionManager.setUserData(userId, userNameFromDB);
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
-                    // Show an error message or handle the invalid login
                     Toast.makeText(LoginActivity.this, "Invalid login credentials", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        // Registration button click listener
         TextView registrationLink = findViewById(R.id.registration);
         registrationLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +59,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // Validate login credentials
     private boolean isValidLogin(String userName, String password) {
         // Call the method from DBHandler to check if the user exists
         DBHandler dbHandler = new DBHandler(this);
