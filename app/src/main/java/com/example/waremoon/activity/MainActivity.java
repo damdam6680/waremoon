@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,11 +22,22 @@ import com.example.waremoon.SunFragment;
 import com.example.waremoon.R;
 import com.example.waremoon.CameraFragment;
 import com.example.waremoon.GalleryFragment;
+import com.example.waremoon.handler.ApiHandler;
 import com.example.waremoon.handler.SessionManagerHandler;
+import com.example.waremoon.handler.UserLocationHandler;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.navigation.NavigationView;
+
+import org.shredzone.commons.suncalc.MoonPosition;
+import org.shredzone.commons.suncalc.MoonTimes;
+
+import java.time.ZonedDateTime;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private FusedLocationProviderClient fusedLocationClient;
     private SessionManagerHandler sessionManager;
     private DrawerLayout drawerLayout;
 
@@ -35,6 +47,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        UserLocationHandler userLocation = new UserLocationHandler(fusedLocationClient);
+        userLocation.requestLocationPermission(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new GalleryFragment()).commit();
         } else if (itemId == R.id.nav_news) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NewsFragment()).commit();
+
         } else if (itemId == R.id.nav_sun) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SunFragment()).commit();
         } else if (itemId == R.id.nav_logout) {
@@ -118,6 +135,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }
+    }
+
+
+
+    public void MoonUpdate(UserLocationHandler userLocation){
+
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            ZonedDateTime now = ZonedDateTime.now();
+
+            MoonTimes.Parameters moonTime = MoonTimes.compute().on(now);
+
+            MoonTimes moon = moonTime.execute();
+
+            String moonRise = String.valueOf(moon.getRise());
+            String moonSet = String.valueOf(moon.getSet());
+
+
+            TextView timeTextView = findViewById(R.id.moonRiseTextView);
+            timeTextView.setText(moonRise);
+
         }
     }
 }

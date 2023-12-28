@@ -16,7 +16,7 @@ public class NotifactionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notification);
+       setContentView(R.layout.activity_notification);
         textView = findViewById(R.id.textViewData);
         String data = getIntent().getStringExtra("data");
         textView.setText(data);

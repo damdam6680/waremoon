@@ -10,6 +10,7 @@ public interface NeoWsApi {
     @GET("neo/rest/v1/feed")
     Call<JsonObject> getNeoFeed(
             @Query("start_date") String startDate,
+            @Query("end_date") String endDate,
             @Query("api_key") String apiKey
     );
 }

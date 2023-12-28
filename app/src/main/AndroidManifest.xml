@@ -65,7 +65,11 @@
         <activity android:name=".activity.RegistrationActivity" />
       
         <activity android:name=".activity.Test" />
-      
+
+        <activity
+            android:name=".activity.NewsActivity"
+            android:exported="false" />
+
         <service android:name="com.example.waremoon.handler.MyFirebaseMessagingService"
             android:exported="false"
             android:directBootAware="true">

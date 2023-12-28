@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -21,10 +22,13 @@ import com.example.waremoon.activity.MainActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
+
+    private Date date = new Date();
     @Override
     public void onCreate() {
         super.onCreate();
@@ -52,7 +56,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 // Handle error loading NEO feed
                 Log.e("MyFirebaseMessagingService", errorMessage);
             }
-        });
+        }, date);
 
     }
 

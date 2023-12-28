@@ -20,7 +20,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiHandler {
-
+    private String TAG = "ApiHandler";
     public interface NeoInfoCallback {
         void onNeoInfoLoaded(List<String> neoInfoList);
         void onNeoInfoError(String errorMessage);
@@ -28,11 +28,15 @@ public class ApiHandler {
 
     private List<String> neoInfoList = new ArrayList<>();
 
-    public void fetchNeoFeed(final NeoInfoCallback callback) {
-
-
+    public void fetchNeoFeed(final NeoInfoCallback callback, Date date) {
+        Log.d(TAG, "fetchNeoFeed");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
+        if (date == null){
+            date = new Date();
+        }
+
+        neoInfoList.clear();
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.nasa.gov/")
@@ -40,11 +44,12 @@ public class ApiHandler {
                 .build();
 
         NeoWsApi neoWsApi = retrofit.create(NeoWsApi.class);
+        Log.d(TAG, String.valueOf(dateFormat.format(date)));
+        String apiKey = "mfWMKuxObKkZKv3Ah0Epe7bKa53IoVigLfGnRCHx";
+        String startDate = String.valueOf(dateFormat.format(date)); // Set the start date as needed
+        String endDate = String.valueOf(dateFormat.format(date));
 
-        String apiKey = "xjVMVwgMxzzYJzTuOmhaHvshPLELEgAwFZSE5iDz";
-        String startDate = "2023-01-01"; // Set the start date as needed
-
-        Call<JsonObject> call = neoWsApi.getNeoFeed(startDate, apiKey);
+        Call<JsonObject> call = neoWsApi.getNeoFeed(startDate,endDate, apiKey);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -82,12 +87,16 @@ public class ApiHandler {
 
                             String neoInfo = "Asteroid Name: " + asteroidName + "\nClose Approach Date: " + asteroidCloseApproachDate;
                             neoInfoList.add(neoInfo);
-                            Log.d("neo", neoInfo);
+
+
                         }
+
                     }
                 }
             }
         }
+        Log.d("neo", String.valueOf(neoInfoList.get(0)));
+        Log.d("neo", String.valueOf(neoInfoList.size()));
     }
 
     public List<String> getNeoInfoList() {
