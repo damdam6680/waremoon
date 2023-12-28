@@ -1,146 +1,123 @@
 package com.example.waremoon.activity;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.waremoon.NewsFragment;
+import com.example.waremoon.MoonFragment;
+import com.example.waremoon.SunFragment;
 import com.example.waremoon.R;
+import com.example.waremoon.CameraFragment;
+import com.example.waremoon.GalleryFragment;
 import com.example.waremoon.handler.SessionManagerHandler;
-import com.example.waremoon.handler.UserLocationHandler;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.unity3d.player.UnityPlayerActivity;
+import com.google.android.material.navigation.NavigationView;
 
-import org.shredzone.commons.suncalc.MoonPosition;
-
-import java.time.ZonedDateTime;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private SessionManagerHandler sessionManager;
-    private FusedLocationProviderClient fusedLocationClient;
+    private DrawerLayout drawerLayout;
+
     private MediaPlayer mediaPlayer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_main);
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        UserLocationHandler userLocation = new UserLocationHandler(fusedLocationClient);
-        userLocation.requestLocationPermission(MainActivity.this);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        Button moonButton = findViewById(R.id.moonButton);
-        moonButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                play();
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    ZonedDateTime now = ZonedDateTime.now();
-                    MoonPosition.Parameters moonParam = MoonPosition.compute()
-                            .at(userLocation.getLatitude(), userLocation.getLongitude())
-                            .timezone("Europe/Warsaw")
-                            .on(now);
-                    MoonPosition moon = moonParam.execute();
-                    Intent i = new Intent(MainActivity.this, UnityPlayerActivity.class);
-                    i.putExtra("longitude", (float) moon.getAzimuth());
-                    i.putExtra("latitude", (float) moon.getAltitude());
-                    startActivity(i);
+        drawerLayout = findViewById(R.id.drawer_layout);
 
-                }
-            }
-        });
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
-        sessionManager = new SessionManagerHandler(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav,
+                R.string.close_nav);
 
-        if (sessionManager.isLoggedIn()) {
-            String userName = sessionManager.getUserName();
-            String userId = String.valueOf(sessionManager.getUserId());
+        drawerLayout.addDrawerListener(toggle);
 
-            TextView userTextView = findViewById(R.id.userTextView);
-            userTextView.setText("Zalogowany użytkownik: " + userName + userId);
+        toggle.syncState();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MoonFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_moon);
         }
 
+        updateUI();
+    }
 
-        Button galleryButton = findViewById(R.id.galleryButton);
-        galleryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                play();
-                if (sessionManager.isLoggedIn()) {
-                    Intent galleryIntent = new Intent(MainActivity.this, GalleryActivity.class);
-                    startActivity(galleryIntent);
-                } else {
-                    Toast.makeText(MainActivity.this, "Musisz być zalogowany, aby skorzystać z tej funkcji", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
 
-        Button cameraButton = findViewById(R.id.cameraButton);
-        cameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                play();
-                if (sessionManager.isLoggedIn()) {
-                    long userId = sessionManager.getUserId();
+        if (itemId == R.id.nav_moon) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MoonFragment()).commit();
+        } else if (itemId == R.id.nav_camera) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CameraFragment()).commit();
+        } else if (itemId == R.id.nav_gallery) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new GalleryFragment()).commit();
+        } else if (itemId == R.id.nav_news) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NewsFragment()).commit();
+        } else if (itemId == R.id.nav_sun) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SunFragment()).commit();
+        } else if (itemId == R.id.nav_logout) {
+            if (sessionManager.isLoggedIn()) {
+                sessionManager.logoutUser();
 
-                    Intent cameraIntent = new Intent(MainActivity.this, PhotosActivity.class);
-                    cameraIntent.putExtra("USER_ID", userId);
-                    startActivity(cameraIntent);
-                } else {
-                    Toast.makeText(MainActivity.this, "Musisz być zalogowany, aby skorzystać z tej funkcji", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        Button userButton = findViewById(R.id.userButton);
-        userButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                play();
+                updateUI();
+            } else {
                 Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
             }
-        });
+        }
 
-        Button userButton2 = findViewById(R.id.userButton2);
-        userButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                play();
-                sessionManager.logoutUser();
-                updateUIAfterLogout();
-            }
-        });
-
-        Button panoramaButton = findViewById(R.id.panoramaButton);
-        panoramaButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                play();
-                Intent panoramaIntent = new Intent(MainActivity.this, PanoramaActivity.class);
-                startActivity(panoramaIntent);
-            }
-        });
-
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 
-    private void updateUIAfterLogout() {
-        TextView userTextView = findViewById(R.id.userTextView);
-        userTextView.setText("Zalogowany użytkownik: ");
-    }
+    private void updateUI() {
+        sessionManager = new SessionManagerHandler(this);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        TextView userNameTextView = headerView.findViewById(R.id.userNameTextView);
+        Menu menu = navigationView.getMenu();
+        MenuItem logoutMenuItem = menu.findItem(R.id.nav_logout);
 
+        if (sessionManager.isLoggedIn()) {
+            String userName = sessionManager.getUserName();
+            userNameTextView.setText("Zalogowany użytkownik: " + userName);
+            logoutMenuItem.setTitle("Logout");
+        } else {
+            userNameTextView.setText("Zalogowany użytkownik: ");
+            logoutMenuItem.setTitle("Login");
+        }
+    }
 
     private void play() {
         if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.click2);
+            mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.click2);
         }
         mediaPlayer.start();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

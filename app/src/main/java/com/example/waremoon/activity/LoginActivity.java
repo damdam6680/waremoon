@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,8 +55,8 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // Registration button click listener
-        Button registrationButton = findViewById(R.id.registration);
-        registrationButton.setOnClickListener(new View.OnClickListener() {
+        TextView registrationLink = findViewById(R.id.registration);
+        registrationLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent registrationIntent = new Intent(LoginActivity.this, RegistrationActivity.class);

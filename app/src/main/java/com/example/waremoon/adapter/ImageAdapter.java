@@ -3,12 +3,14 @@ package com.example.waremoon.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.example.waremoon.R;
 import com.example.waremoon.sql.DBHandler;
 import com.example.waremoon.interfaces.OnItemClickListener;
 import com.example.waremoon.handler.SessionManagerHandler;
@@ -18,9 +20,11 @@ import java.util.List;
 public class ImageAdapter extends BaseAdapter {
 
     private Context mContext;
+
     private List<byte[]> mUserPhotos;
     private List<Integer> mImageIds;
     private OnItemClickListener mItemClickListener;
+    LayoutInflater layoutInflater;
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         mItemClickListener = listener;
@@ -65,24 +69,23 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
+        View gridItemView;
+
         if (convertView == null) {
-            imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(300, 300));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            gridItemView = inflater.inflate(R.layout.grid_item, null);
         } else {
-            imageView = (ImageView) convertView;
+            gridItemView = convertView;
         }
 
-        // Wczytaj obraz z danych binarnych z bazy danych
+        ImageView imageView = gridItemView.findViewById(R.id.gridImage);
+
         byte[] imageData = mUserPhotos.get(position);
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
         imageView.setImageBitmap(bitmap);
 
         imageView.setRotation(90);
 
-        // Dodaj obsługę zdarzenia kliknięcia
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +95,7 @@ public class ImageAdapter extends BaseAdapter {
             }
         });
 
-        return imageView;
+        return gridItemView;
     }
 
     public void updateUserPhotos() {
