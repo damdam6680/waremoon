@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/cancel/baseline_cancel_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/lightbulb_circle/baseline_lightbulb_circle_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="gal_del" />
+                            <entry key="outputName" value="nav_torch" />
                             <entry key="sourceFile" value="C:\Users\Admin\Desktop\waremoon" />
                           </map>
                         </option>
