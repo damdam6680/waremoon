@@ -16,6 +16,7 @@ import com.example.waremoon.activity.CameraActivity;
 import com.example.waremoon.sql.DBHandler;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * A basic Camera preview class
@@ -122,8 +123,19 @@ public class CameraPreviewHandler extends SurfaceView implements SurfaceHolder.C
         }
         camera.setDisplayOrientation(result);
     }
-    public void takePicture(final int userId) {
+    public void takePicture(final int userId, final int desiredWidth, final int desiredHeight) {
         if (mCamera != null) {
+            // Get the supported picture sizes
+            Camera.Parameters parameters = mCamera.getParameters();
+            List<Camera.Size> supportedPictureSizes = parameters.getSupportedPictureSizes();
+
+            // Find the closest supported size to the desired size
+            Camera.Size bestSize = getBestPictureSize(supportedPictureSizes, desiredWidth, desiredHeight);
+
+            // Set the picture size
+            parameters.setPictureSize(bestSize.width, bestSize.height);
+            mCamera.setParameters(parameters);
+
             mCamera.takePicture(null, null, new Camera.PictureCallback() {
                 @Override
                 public void onPictureTaken(byte[] data, Camera camera) {
@@ -138,6 +150,21 @@ public class CameraPreviewHandler extends SurfaceView implements SurfaceHolder.C
         } else {
             Log.e("CameraPreview", "Camera is null");
         }
+    }
+
+    private Camera.Size getBestPictureSize(List<Camera.Size> supportedSizes, int desiredWidth, int desiredHeight) {
+        Camera.Size bestSize = supportedSizes.get(0);
+        int currentDiff = Math.abs(bestSize.width * bestSize.height - desiredWidth * desiredHeight);
+
+        for (Camera.Size size : supportedSizes) {
+            int diff = Math.abs(size.width * size.height - desiredWidth * desiredHeight);
+            if (diff < currentDiff) {
+                bestSize = size;
+                currentDiff = diff;
+            }
+        }
+
+        return bestSize;
     }
 
     public Camera getCameraInstance() {

@@ -35,7 +35,7 @@ public class CameraFragment extends Fragment {
         takePhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cameraPreview.takePicture(userId);
+                cameraPreview.takePicture(userId,400,400);
             }
         });
 
