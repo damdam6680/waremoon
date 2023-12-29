@@ -134,7 +134,7 @@
             style="@style/boldText"
             android:layout_width="0dp"
             android:layout_height="38dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="9dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="Położenie Księżyca"
@@ -142,17 +142,93 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonLayout" />
 
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="389dp"
+            android:layout_height="135dp"
+            android:background="@drawable/border_background"
+            android:orientation="horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/dayTimeTextView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="długość geograficzna" />
+
+                <TextView
+                    android:id="@+id/timeTextView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="szerokosc geograficzna" />
+
+                <TextView
+                    android:id="@+id/CzyNadChoryzontem1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="odleglosc od ziemi" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/moonRiseTextView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0:00" />
+
+                <TextView
+                    android:id="@+id/moonSetTextView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0:00" />
+
+                <TextView
+                    android:id="@+id/moonFaze2TextView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0:00" />
+            </LinearLayout>
+        </LinearLayout>
+
         <ImageView
             android:id="@+id/moonImageView"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="48dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
             app:srcCompat="@drawable/moon_image" />
 
         <TextView
@@ -168,10 +244,10 @@
             app:layout_constraintTop_toBottomOf="@+id/moonImageView" />
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -239,14 +315,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="424dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/border_background"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonLayout">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -292,6 +367,7 @@
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:text="0:00" />
+
                 <TextView
                     android:id="@+id/moonSetTextView"
                     android:layout_width="match_parent"
