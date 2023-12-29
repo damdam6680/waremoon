@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new GalleryFragment()).commit();
         } else if (itemId == R.id.nav_news) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NewsFragment()).commit();
-
         } else if (itemId == R.id.nav_sun) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SunFragment()).commit();
         } else if (itemId == R.id.nav_torch) {
@@ -183,8 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
-    public void MoonUpdate(UserLocationHandler userLocation){
+    public void MoonUpdate(UserLocationHandler userLocation) {
 
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {

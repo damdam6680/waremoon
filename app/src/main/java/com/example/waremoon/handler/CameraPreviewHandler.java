@@ -25,6 +25,7 @@ import java.util.List;
 public class CameraPreviewHandler extends SurfaceView implements SurfaceHolder.Callback {
     private final SurfaceHolder mHolder;
     private final Camera mCamera;
+    private boolean isPictureProcessing = false;
 
     public CameraPreviewHandler(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -124,7 +125,9 @@ public class CameraPreviewHandler extends SurfaceView implements SurfaceHolder.C
         camera.setDisplayOrientation(result);
     }
     public void takePicture(final int userId, final int desiredWidth, final int desiredHeight) {
-        if (mCamera != null) {
+        if (!isPictureProcessing && mCamera != null) {
+            isPictureProcessing = true;
+
             // Get the supported picture sizes
             Camera.Parameters parameters = mCamera.getParameters();
             List<Camera.Size> supportedPictureSizes = parameters.getSupportedPictureSizes();
@@ -145,10 +148,13 @@ public class CameraPreviewHandler extends SurfaceView implements SurfaceHolder.C
 
                     // Restart the preview to allow taking more pictures
                     camera.startPreview();
+
+                    // Reset the flag since picture processing is complete
+                    isPictureProcessing = false;
                 }
             });
         } else {
-            Log.e("CameraPreview", "Camera is null");
+            Log.e("CameraPreview", "Camera is null or picture is being processed");
         }
     }
 
