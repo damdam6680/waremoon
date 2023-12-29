@@ -22,11 +22,10 @@ import java.util.Date;
 import java.util.List;
 
 public class NewsFragment extends Fragment {
-
     private LinearLayout linearLayout;
     private Date date = new Date();
     private ApiHandler apiHandler;
-
+    private boolean isApiCallInProgress = false;
     Button btnNext;
 
     @Override
@@ -72,27 +71,17 @@ public class NewsFragment extends Fragment {
         return view;
     }
 
-    public void onNextButtonClick(View view) {
-        long sevenDaysInMillis = 24 * 60 * 60 * 1000;
-        date.setTime(date.getTime() + sevenDaysInMillis);
-
-        btnNext.setVisibility(isCurrentDate() ? View.GONE : View.VISIBLE);
-
-        clearTextViews();
-        Api(date);
-    }
-
-
     private void Api(Date date) {
         apiHandler.fetchNeoFeed(new ApiHandler.NeoInfoCallback() {
             @Override
             public void onNeoInfoLoaded(List<String> neoInfoList) {
                 displayNeoInfo(neoInfoList);
+                isApiCallInProgress = false;
             }
 
             @Override
             public void onNeoInfoError(String errorMessage) {
-                // Handle error, for example, display an error message
+                isApiCallInProgress = false;
             }
         }, date);
     }
@@ -102,16 +91,18 @@ public class NewsFragment extends Fragment {
     }
 
     private void displayNeoInfo(List<String> neoInfoList) {
-        if (neoInfoList != null && !neoInfoList.isEmpty()) {
-            for (String neoInfo : neoInfoList) {
-                TextView textView = new TextView(requireContext()); // Update with requireContext()
-                textView.setText(neoInfo);
-                textView.setTextSize(18);
-                textView.setPadding(0, 10, 0, 0);
-                linearLayout.addView(textView);
+        if (isAdded()) {
+            if (neoInfoList != null && !neoInfoList.isEmpty()) {
+                for (String neoInfo : neoInfoList) {
+                    TextView textView = new TextView(requireContext()); // Update with requireContext()
+                    textView.setText(neoInfo);
+                    textView.setTextSize(18);
+                    textView.setPadding(0, 10, 0, 0);
+                    linearLayout.addView(textView);
+                }
+            } else {
+                // Handle case where the list is empty
             }
-        } else {
-            // Handle case where the list is empty
         }
     }
 
@@ -125,15 +116,33 @@ public class NewsFragment extends Fragment {
                 currentDate.get(Calendar.DAY_OF_MONTH) == selectedDate.get(Calendar.DAY_OF_MONTH);
     }
 
+    public void onNextButtonClick(View view) {
+        if (!isApiCallInProgress) {
+            isApiCallInProgress = true;
+
+            long sevenDaysInMillis = 24 * 60 * 60 * 1000;
+            date.setTime(date.getTime() + sevenDaysInMillis);
+
+            btnNext.setVisibility(isCurrentDate() ? View.GONE : View.VISIBLE);
+
+            clearTextViews();
+            Api(date);
+        }
+    }
+
     public void onBackButtonClick(View view) {
-        long sevenDaysInMillis = 24 * 60 * 60 * 1000;
-        date.setTime(date.getTime() - sevenDaysInMillis);
+        if (!isApiCallInProgress) {
+            isApiCallInProgress = true;
 
-        // Clear existing TextViews and fetch data with the updated date
-        clearTextViews();
-        Api(date);
+            long sevenDaysInMillis = 24 * 60 * 60 * 1000;
+            date.setTime(date.getTime() - sevenDaysInMillis);
 
-        btnNext.setVisibility(isCurrentDate() ? View.GONE : View.VISIBLE);
+            // Clear existing TextViews and fetch data with the updated date
+            clearTextViews();
+            Api(date);
+
+            btnNext.setVisibility(isCurrentDate() ? View.GONE : View.VISIBLE);
+        }
     }
 
 

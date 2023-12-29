@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.PanoramaActivity">
+    tools:context=".activity.PanoramaMoonActivity">
 
     <android.opengl.GLSurfaceView
         android:id="@+id/panorama_view"

@@ -3,7 +3,6 @@ package com.example.waremoon.activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.waremoon.R;
-import com.example.waremoon.activity.PanoramaActivity;
 import com.example.waremoon.handler.UserLocationHandler;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -91,7 +89,7 @@ public class MoonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 play();
-                Intent panoramaIntent = new Intent(requireActivity(), PanoramaActivity.class);
+                Intent panoramaIntent = new Intent(requireActivity(), PanoramaMoonActivity.class);
                 startActivity(panoramaIntent);
             }
         });
@@ -112,7 +110,7 @@ public class MoonFragment extends Fragment {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX['['VV']']");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX['['VV']']");
 
             MoonTimes.Parameters moonTime = MoonTimes.compute().on(date);
 
