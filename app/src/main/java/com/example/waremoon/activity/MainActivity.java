@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new GalleryFragment()).commit();
         } else if (itemId == R.id.nav_news) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NewsFragment()).commit();
-
         } else if (itemId == R.id.nav_sun) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SunFragment()).commit();
         } else if (itemId == R.id.nav_torch) {
@@ -182,8 +181,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
-
-
-
 }
