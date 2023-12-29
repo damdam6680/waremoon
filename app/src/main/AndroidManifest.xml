@@ -54,15 +54,13 @@
 
         <activity android:name=".activity.ImageDetailActivity" />
 
-        <activity android:name=".activity.PanoramaActivity" />
+        <activity android:name=".activity.PanoramaMoonActivity" />
+
+        <activity android:name=".activity.PanoramaSunActivity" />
 
         <activity android:name=".activity.LoginActivity" />
 
         <activity android:name=".activity.RegistrationActivity" />
-
-        <activity
-            android:name=".activity.NewsActivity"
-            android:exported="false" />
 
         <service android:name="com.example.waremoon.handler.MyFirebaseMessagingService"
             android:exported="false"

@@ -1,9 +1,7 @@
 package com.example.waremoon.activity;
 
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.view.ViewGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +11,7 @@ import com.panoramagl.PLManager;
 import com.panoramagl.PLSphericalPanorama;
 import com.panoramagl.utils.PLUtils;
 
-public class PanoramaActivity extends AppCompatActivity {
+public class PanoramaMoonActivity extends AppCompatActivity {
     private PLManager plManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,32 +23,10 @@ public class PanoramaActivity extends AppCompatActivity {
         PLSphericalPanorama panorama = new PLSphericalPanorama();
         panorama.getCamera().lookAt(30.0f, 90.0f);
 
-        panorama.setImage(new PLImage(PLUtils.getBitmap(this, R.raw.sighisoara_sphere), false));
+        panorama.setImage(new PLImage(PLUtils.getBitmap(this, R.raw.moon_sphere), false));
 
         plManager.setPanorama(panorama);
     }
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.panorama);
-//
-//        GLSurfaceView glSurfaceView = findViewById(R.id.panorama_view);
-//        plManager = new PLManager(this);
-//
-//        // Zmieniona linia - używamy rodzica GLSurfaceView jako argumentu
-//        ViewGroup glSurfaceParent = (ViewGroup) glSurfaceView.getParent();
-//        plManager.setContentView(glSurfaceParent);
-//
-//        plManager.onCreate();
-//
-//        PLSphericalPanorama panorama = new PLSphericalPanorama();
-//        panorama.getCamera().lookAt(30.0f, 90.0f);
-//        panorama.setImage(new PLImage(PLUtils.getBitmap(this, R.raw.sighisoara_sphere), false));
-//
-//        plManager.setPanorama(panorama);
-//    }
-
 
     @Override
     protected void onResume() {

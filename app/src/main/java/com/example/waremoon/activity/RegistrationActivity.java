@@ -48,20 +48,26 @@ public class RegistrationActivity extends AppCompatActivity {
                 String password = passwordTextField.getText().toString();
 
                 if (email.isEmpty() && userName.isEmpty() && password.isEmpty()) {
-                    Toast.makeText(RegistrationActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity.this, "Wprowadź wszyskie dane", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (isEmailOk(email) && isUserNameOk(userName) && isPasswordOk(password)) {
                     dbHandler.registerUser(email, userName, password);
 
-                    Toast.makeText(RegistrationActivity.this, "Registration successful.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity.this, "Rejestracja zakończona sukcesem", Toast.LENGTH_SHORT).show();
                     emailTextField.setText("");
                     userNameTextField.setText("");
                     passwordTextField.setText("");
                 }
-                else {
-                    Toast.makeText(RegistrationActivity.this, "Set validate data.", Toast.LENGTH_SHORT).show();
+                else if(!isEmailOk(email)){
+                    Toast.makeText(RegistrationActivity.this, "Wprowadź poprawny email", Toast.LENGTH_SHORT).show();
+                }
+                else if(!isUserNameOk(userName)){
+                    Toast.makeText(RegistrationActivity.this, "Wprowadź poprawną nazwe użytkownika", Toast.LENGTH_SHORT).show();
+                }
+                else if(!isPasswordOk(password)){
+                    Toast.makeText(RegistrationActivity.this, "Hasło powinno składac się z 8 znaków w tym z przynajmniej jdenej dużej litery i jednej cyfry", Toast.LENGTH_SHORT).show();
                 }
             }
         });
