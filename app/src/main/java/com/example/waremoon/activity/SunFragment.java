@@ -1,4 +1,4 @@
-package com.example.waremoon;
+package com.example.waremoon.activity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -11,6 +11,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.waremoon.R;
 import com.example.waremoon.handler.UserLocationHandler;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;

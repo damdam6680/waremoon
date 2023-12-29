@@ -52,10 +52,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.GalleryActivity" />
-
-        <activity android:name=".activity.PhotosActivity" />
-
         <activity android:name=".activity.ImageDetailActivity" />
 
         <activity android:name=".activity.PanoramaActivity" />
@@ -63,8 +59,6 @@
         <activity android:name=".activity.LoginActivity" />
 
         <activity android:name=".activity.RegistrationActivity" />
-      
-        <activity android:name=".activity.Test" />
 
         <activity
             android:name=".activity.NewsActivity"

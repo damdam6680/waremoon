@@ -1,4 +1,4 @@
-package com.example.waremoon;
+package com.example.waremoon.activity;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.waremoon.R;
 import com.example.waremoon.handler.ApiHandler;
 
 import java.util.ArrayList;

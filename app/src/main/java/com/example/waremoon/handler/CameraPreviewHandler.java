@@ -172,8 +172,4 @@ public class CameraPreviewHandler extends SurfaceView implements SurfaceHolder.C
 
         return bestSize;
     }
-
-    public Camera getCameraInstance() {
-        return mCamera;
-    }
 }

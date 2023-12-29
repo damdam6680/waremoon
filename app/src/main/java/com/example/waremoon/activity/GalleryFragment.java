@@ -1,6 +1,7 @@
-package com.example.waremoon;
+package com.example.waremoon.activity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +11,16 @@ import android.widget.GridView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.example.waremoon.activity.ImageDetailActivity;
-import com.example.waremoon.activity.PhotosActivity;
+import com.example.waremoon.R;
 import com.example.waremoon.adapter.ImageAdapter;
 import com.example.waremoon.handler.SessionManagerHandler;
 import com.example.waremoon.interfaces.OnItemClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class GalleryFragment extends Fragment {
+    private MediaPlayer mediaPlayer = null;
     private static final int IMAGE_DETAIL_REQUEST_CODE = 1;
 
     private ImageAdapter imageAdapter;
@@ -48,12 +50,24 @@ public class GalleryFragment extends Fragment {
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                play();
+
                 SessionManagerHandler sessionManager = new SessionManagerHandler(requireContext());
                 int userId = sessionManager.getUserId();
 
-                Intent cameraIntent = new Intent(requireContext(), PhotosActivity.class);
-                cameraIntent.putExtra("USER_ID", userId);
-                startActivity(cameraIntent);
+                CameraFragment cameraFragment = new CameraFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("USER_ID", userId);
+                cameraFragment.setArguments(bundle);
+
+                FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+
+                transaction.replace(R.id.fragment_container, cameraFragment);
+
+                transaction.addToBackStack(null);
+
+                transaction.commit();
             }
         });
 
@@ -74,5 +88,15 @@ public class GalleryFragment extends Fragment {
     private void updateGallery() {
         imageAdapter.updateUserPhotos();
         imageAdapter.notifyDataSetChanged();
+    }
+
+    private void play() {
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(requireContext(), R.raw.click2);
+        } else {
+            mediaPlayer.release();
+            mediaPlayer = MediaPlayer.create(requireContext(), R.raw.click2);
+        }
+        mediaPlayer.start();
     }
 }
