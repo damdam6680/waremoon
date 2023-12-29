@@ -38,7 +38,9 @@ import org.shredzone.commons.suncalc.MoonPosition;
 import org.shredzone.commons.suncalc.MoonTimes;
 
 import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -75,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MoonFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_moon);
         }
-
         updateUI();
     }
 
@@ -184,23 +185,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    public void MoonUpdate(UserLocationHandler userLocation){
 
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            ZonedDateTime now = ZonedDateTime.now();
-
-            MoonTimes.Parameters moonTime = MoonTimes.compute().on(now);
-
-            MoonTimes moon = moonTime.execute();
-
-            String moonRise = String.valueOf(moon.getRise());
-            String moonSet = String.valueOf(moon.getSet());
-
-
-            TextView timeTextView = findViewById(R.id.moonRiseTextView);
-            timeTextView.setText(moonRise);
-
-        }
-    }
 }
