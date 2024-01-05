@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    implementation project('xrmanifest.androidlib')
+    //implementation project('xrmanifest.androidlib')
 
 }
 
@@ -81,7 +81,7 @@ def BuildIl2Cpp(String workingDir, String configuration, String architecture, St
         environment "ANDROID_SDK_ROOT", getSdkDir()
     }
     delete workingDir + "/src/main/jniLibs/" + abi + "/libil2cpp.sym.so"
-     ant.move(file: workingDir + "/src/main/jniLibs/" + abi + "/libil2cpp.dbg.so", tofile: workingDir + "/symbols/" + abi + "/libil2cpp.so")
+    ant.move(file: workingDir + "/src/main/jniLibs/" + abi + "/libil2cpp.dbg.so", tofile: workingDir + "/symbols/" + abi + "/libil2cpp.so")
 }
 
 android {
