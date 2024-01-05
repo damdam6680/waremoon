@@ -156,6 +156,7 @@ public class UnityPlayerActivity extends Activity implements IUnityPlayerLifecyc
             return mUnityPlayer.injectEvent(event);
         return super.dispatchKeyEvent(event);
     }
+
     public float GetLongitudeForUnity(){
         Log.d("unity","GetLongitudeForUnity " +  getIntent().getFloatExtra("longitude", 0.0f));
         return getIntent().getFloatExtra("longitude", 0.0f);
@@ -164,6 +165,16 @@ public class UnityPlayerActivity extends Activity implements IUnityPlayerLifecyc
     public float GetLatitudeForUnity(){
         Log.d("unity","GetLatitudeForUnity " + getIntent().getFloatExtra("latitude", 0.0f));
         return getIntent().getFloatExtra("latitude", 0.0f);
+    }
+
+    public float GetLongitudeForUnitySun(){
+        Log.d("unity","GetLongitudeForUnitySun " +  getIntent().getFloatExtra("longitudeSun", 0.0f));
+        return getIntent().getFloatExtra("longitudeSun", 0.0f);
+    }
+
+    public float GetLatitudeForUnitySun(){
+        Log.d("unity","GetLatitudeForUnity " + getIntent().getFloatExtra("latitudeSun", 0.0f));
+        return getIntent().getFloatExtra("latitudeSun", 0.0f);
     }
 
     // Pass any events not handled by (unfocused) views straight to UnityPlayer

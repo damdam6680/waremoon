@@ -52,42 +52,7 @@
                         android:layout_height="30dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Księżyc" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/buttonLayout3"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_background"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/starButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/circle_button_background"
-                        android:text="⭐️"
-                        android:textSize="40sp" />
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Gwiazdy" />
+                        android:text="Mapa nieba" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -137,7 +102,7 @@
             android:layout_marginStart="9dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="Położenie Księżyca"
+            android:text="Położenie Słońca"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonLayout" />

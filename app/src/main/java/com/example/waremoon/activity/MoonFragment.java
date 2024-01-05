@@ -1,13 +1,17 @@
 package com.example.waremoon.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -20,6 +24,7 @@ import com.unity3d.player.UnityPlayerActivity;
 
 import org.shredzone.commons.suncalc.MoonPosition;
 import org.shredzone.commons.suncalc.MoonTimes;
+import org.shredzone.commons.suncalc.SunPosition;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -76,9 +81,19 @@ public class MoonFragment extends Fragment {
                             .timezone("Europe/Warsaw")
                             .on(now);
                     MoonPosition moon = moonParam.execute();
+
                     Intent i = new Intent(requireActivity(), UnityPlayerActivity.class);
                     i.putExtra("longitude", (float) moon.getAzimuth());
                     i.putExtra("latitude", (float) moon.getAltitude());
+
+                    SunPosition.Parameters sunParam = SunPosition.compute()
+                            .at(userLocation.getLatitude(), userLocation.getLongitude())
+                            .timezone("Europe/Warsaw")
+                            .on(now);
+                    SunPosition sun = sunParam.execute();
+                    i.putExtra("longitude", (float) sun.getAzimuth());
+                    i.putExtra("latitude", (float) sun.getAltitude());
+
                     startActivity(i);
                 }
             }
@@ -152,8 +167,6 @@ public class MoonFragment extends Fragment {
             timeTextView1.setText(("" +  (int) moonPosition.getAltitude()) + "°" );
             moonFaze2TextView1.setText("" + (int)  moonPosition.getDistance() + " km");
             moonSetTextView1.setText("" +  (int)  moonPosition.getAzimuth() + "°");
-
-
         }
     }
 }

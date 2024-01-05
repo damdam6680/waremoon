@@ -18,6 +18,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.unity3d.player.UnityPlayerActivity;
 
+import org.shredzone.commons.suncalc.MoonPosition;
 import org.shredzone.commons.suncalc.SunPosition;
 import org.shredzone.commons.suncalc.SunTimes;
 
@@ -71,12 +72,23 @@ public class SunFragment extends Fragment {
                 play();
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                     ZonedDateTime now = ZonedDateTime.now();
+
+                    MoonPosition.Parameters moonParam = MoonPosition.compute()
+                            .at(userLocation.getLatitude(), userLocation.getLongitude())
+                            .timezone("Europe/Warsaw")
+                            .on(now);
+                    MoonPosition moon = moonParam.execute();
+
+                    Intent i = new Intent(requireActivity(), UnityPlayerActivity.class);
+                    i.putExtra("longitude", (float) moon.getAzimuth());
+                    i.putExtra("latitude", (float) moon.getAltitude());
+
+
                     SunPosition.Parameters sunParam = SunPosition.compute()
                             .at(userLocation.getLatitude(), userLocation.getLongitude())
                             .timezone("Europe/Warsaw")
                             .on(now);
                     SunPosition sun = sunParam.execute();
-                    Intent i = new Intent(requireActivity(), UnityPlayerActivity.class);
                     i.putExtra("longitude", (float) sun.getAzimuth());
                     i.putExtra("latitude", (float) sun.getAltitude());
                     startActivity(i);
