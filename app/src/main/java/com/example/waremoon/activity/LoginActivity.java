@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(LoginActivity.this, "Invalid login credentials", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Nie poprawne dane logowania.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

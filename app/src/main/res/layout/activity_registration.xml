@@ -28,7 +28,7 @@
                 android:id="@+id/loginText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Registration"
+                android:text="Rejestracja"
                 android:textAlignment="center"
                 android:textColor="@color/lavender"
                 android:textSize="30sp"
@@ -55,7 +55,7 @@
                 android:background="@drawable/custom_edittext"
                 android:drawableLeft="@drawable/log_person"
                 android:drawablePadding="8dp"
-                android:hint="Username"
+                android:hint="Login"
                 android:padding="8dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/cardview_dark_background" />
@@ -68,7 +68,7 @@
                 android:background="@drawable/custom_edittext"
                 android:drawableLeft="@drawable/log_lock"
                 android:drawablePadding="8dp"
-                android:hint="Password"
+                android:hint="Hasło"
                 android:inputType="textPassword"
                 android:padding="8dp"
                 android:textColor="@color/black"
@@ -80,7 +80,7 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/lavender"
-                android:text="Register"
+                android:text="Zarejestruj się"
                 android:textSize="18sp"
                 app:cornerRadius="20dp" />
         </LinearLayout>
@@ -92,7 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:padding="8dp"
-        android:text="Registered? SignIn Now"
+        android:text="Zaloguj"
         android:textAlignment="center"
         android:textColor="@color/lavender"
         android:textSize="14sp" />
