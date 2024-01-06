@@ -72,4 +72,9 @@ public class UserLocationHandler {
                     });
         }
     }
+
+    public boolean hasLocationPermission(AppCompatActivity activity) {
+        return ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED;
+    }
 }

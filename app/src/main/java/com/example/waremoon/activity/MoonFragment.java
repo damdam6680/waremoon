@@ -1,5 +1,7 @@
 package com.example.waremoon.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
@@ -26,6 +28,7 @@ import org.shredzone.commons.suncalc.MoonPosition;
 import org.shredzone.commons.suncalc.MoonTimes;
 import org.shredzone.commons.suncalc.SunPosition;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -125,7 +128,14 @@ public class MoonFragment extends Fragment {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX['['VV']']");
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX[VV]");
+
+            if (!userLocation.hasLocationPermission((AppCompatActivity) requireActivity())) {
+
+                MainActivity.showNotification("Aplikacja nie ma dostepu do GPS", "Żeby aplikacja działała poprawnie musi posiadac uprawnienia do gps", getContext());
+                Log.e("gps", "error");
+                return;
+            }
 
             MoonTimes.Parameters moonTime = MoonTimes.compute().on(date);
 
@@ -139,14 +149,16 @@ public class MoonFragment extends Fragment {
 
             String moonRise = String.valueOf(moon.getRise());
             String moonSet =   String.valueOf(moon.getSet());
-            String moonHorizont = "TAK";
+            String moonHorizont = "NIE";
+            ZonedDateTime currentTime = ZonedDateTime.now(ZoneId.of("Europe/Warsaw"));
 
-            if (moon.isAlwaysUp()){
+            if (currentTime.isAfter(moon.getRise()) && currentTime.isBefore(moon.getSet())) {
                 moonHorizont = "TAK";
-            }else { moonHorizont = "NIE"; }
+            }
 
-            ZonedDateTime zonedDateTimeRise = ZonedDateTime.parse(moonRise, formatter);
-            ZonedDateTime zonedDateTimeSet = ZonedDateTime.parse(moonSet, formatter);
+            ZonedDateTime zonedDateTimeRise = ZonedDateTime.parse(moonRise);
+            ZonedDateTime zonedDateTimeSet = ZonedDateTime.parse(moonSet);
+
 
             TextView timeTextView = view.findViewById(R.id.moonRiseTextView);
 
@@ -160,13 +172,17 @@ public class MoonFragment extends Fragment {
 
             TextView moonSetTextView1 = view.findViewById(R.id.moonSetTextView1);
 
-            timeTextView.setText( zonedDateTimeRise.getHour() + ":" +  zonedDateTimeRise.getMinute());
+            timeTextView.setText(String.format("%02d:%02d", zonedDateTimeRise.getHour(), zonedDateTimeRise.getMinute()));
             moonFaze2TextView.setText(moonHorizont);
-            moonSetTextView.setText(zonedDateTimeSet.getHour() + ":" + zonedDateTimeSet.getMinute());
+            moonSetTextView.setText(String.format("%02d:%02d", zonedDateTimeSet.getHour(), zonedDateTimeSet.getMinute()));
 
             timeTextView1.setText(("" +  (int) moonPosition.getAltitude()) + "°" );
             moonFaze2TextView1.setText("" + (int)  moonPosition.getDistance() + " km");
             moonSetTextView1.setText("" +  (int)  moonPosition.getAzimuth() + "°");
+
+
         }
     }
+
+
 }

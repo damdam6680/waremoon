@@ -13,6 +13,7 @@ import android.view.SurfaceView;
 import androidx.annotation.NonNull;
 
 import com.example.waremoon.activity.CameraActivity;
+import com.example.waremoon.activity.MainActivity;
 import com.example.waremoon.sql.DBHandler;
 
 import java.io.IOException;
@@ -70,7 +71,7 @@ public class CameraPreviewHandler extends SurfaceView implements SurfaceHolder.C
         // Make sure to stop the preview before resizing or reformatting it.
 
         if (mHolder.getSurface() == null) {
-            // preview surface does not exist
+            Log.d("camera", "Surface == null");
             return;
         }
 
@@ -154,7 +155,11 @@ public class CameraPreviewHandler extends SurfaceView implements SurfaceHolder.C
                 }
             });
         } else {
-            Log.e("CameraPreview", "Camera is null or picture is being processed");
+            Log.e("GPS permissions required", "Camera is null or picture is being processed");
+            if (mCamera == null){
+                MainActivity.showNotification("Aplikacja nie ma dostępu do Aparatu", "Zeby aparat działał poprawnie potezebne są uprawnienia do aparatu", getContext());
+            }
+
         }
     }
 

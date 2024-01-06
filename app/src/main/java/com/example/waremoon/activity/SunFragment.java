@@ -1,13 +1,17 @@
 package com.example.waremoon.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -22,6 +26,7 @@ import org.shredzone.commons.suncalc.MoonPosition;
 import org.shredzone.commons.suncalc.SunPosition;
 import org.shredzone.commons.suncalc.SunTimes;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -122,6 +127,13 @@ public class SunFragment extends Fragment {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
 
+            if (!userLocation.hasLocationPermission((AppCompatActivity) requireActivity())) {
+                // Display notification about missing GPS permissions
+                MainActivity.showNotification("Aplikacja nie ma dostepu do GPS", "Żeby aplikacja działała poprawnie musi posiadac uprawnienia do gps", getContext());
+                Log.e("gps", "error");
+                return;
+            }
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX['['VV']']");
 
             SunTimes.Parameters sunTime = SunTimes.compute().on(date);
@@ -137,13 +149,13 @@ public class SunFragment extends Fragment {
             String sunRise = String.valueOf(sun.getRise());
             String sunSet =   String.valueOf(sun.getSet());
             String sunHorizont = "TAK";
+            ZonedDateTime currentTime = ZonedDateTime.now(ZoneId.of("Europe/Warsaw"));
+            if (currentTime.isAfter(sun.getRise()) && currentTime.isBefore(sun.getSet())) {
+                sunHorizont = "NIE";
+            }
 
-            if (sun.isAlwaysUp()){
-                sunHorizont = "TAK";
-            }else { sunHorizont = "NIE"; }
-
-            ZonedDateTime zonedDateTimeRise = ZonedDateTime.parse(sunRise, formatter);
-            ZonedDateTime zonedDateTimeSet = ZonedDateTime.parse(sunSet, formatter);
+            ZonedDateTime zonedDateTimeRise = ZonedDateTime.parse(sunRise);
+            ZonedDateTime zonedDateTimeSet = ZonedDateTime.parse(sunSet);
 
             TextView timeTextView = view.findViewById(R.id.sunRiseTextView);
 
@@ -157,9 +169,9 @@ public class SunFragment extends Fragment {
 
             TextView sunSetTextView1 = view.findViewById(R.id.sunSetTextView1);
 
-            timeTextView.setText( zonedDateTimeRise.getHour() + ":" +  zonedDateTimeRise.getMinute());
+            timeTextView.setText( String.format("%02d:%02d", zonedDateTimeRise.getHour(), zonedDateTimeRise.getMinute()));
             sunFaze2TextView.setText(sunHorizont);
-            sunSetTextView.setText(zonedDateTimeSet.getHour() + ":" + zonedDateTimeSet.getMinute());
+            sunSetTextView.setText(String.format("%02d:%02d", zonedDateTimeSet.getHour(), zonedDateTimeSet.getMinute()));
 
             timeTextView1.setText(("" +  (int) sunPosition.getAltitude()) + "°" );
             sunFaze2TextView1.setText("" + (int)  sunPosition.getDistance() + " km");
@@ -168,4 +180,5 @@ public class SunFragment extends Fragment {
 
         }
     }
+
 }

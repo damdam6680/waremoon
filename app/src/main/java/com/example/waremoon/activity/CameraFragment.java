@@ -1,5 +1,6 @@
 package com.example.waremoon.activity;
 
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -81,4 +82,6 @@ public class CameraFragment extends Fragment {
         }
         mediaPlayer.start();
     }
+
+
 }
